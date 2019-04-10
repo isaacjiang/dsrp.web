@@ -1,11 +1,11 @@
 {
   "name": "dsrp.web",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "version": "0.1.0",
+  "author": "Isaac Jiang",
+  "homepage": "www.github.com/isaacjiang",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 6001",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
