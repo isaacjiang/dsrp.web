@@ -153,9 +153,11 @@ export class HeaderComponent {
         // this.events.publish('header-logout-current-user')
     }
 
-    async signup() {
+    async signUp() {
         const prompt = await this.alertController.create({
             header: 'SignUp',
+            mode: 'ios',
+            cssClass: 'user-sign-up-alert',
             // message: 'Enter a name for this new album you're so keen on adding',
             inputs: [
                 {
@@ -215,6 +217,8 @@ export class HeaderComponent {
 //                 }
 //             });
 //         }
+
+        // prompt.setAttribute('--min-width', '600px');
         await prompt.present();
     }
 

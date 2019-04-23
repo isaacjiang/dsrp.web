@@ -1,6 +1,6 @@
 
 
-<ion-toolbar color="primary">
+<ion-toolbar color="primary" >
   <ion-row>
     <ion-col size="6">
 <!--      <ion-row justify-content-around>-->
@@ -88,13 +88,13 @@
   <ion-button clear block>
     {{ current_user['username'] }}
   </ion-button>
-  <ion-button shape="round" (click)="loadPage('home')" *ngIf="viewCtl.showJoinTeam">
+  <ion-button shape="round" (click)="joinTeam()" *ngIf="viewCtl.showJoinTeam">
     <ion-icon slot='icon-only' name="ios-contacts"></ion-icon>
   </ion-button>
-  <ion-button shape="round" (click)="loadPage('home')" *ngIf="viewCtl.showSignup">
+  <ion-button shape="round" (click)="signUp()" *ngIf="viewCtl.showSignup">
     <ion-icon slot='icon-only' name="ios-add-circle-outline"></ion-icon>
   </ion-button>
-  <ion-button shape="round" (click)="loadPage('home')" *ngIf="viewCtl.showLogOut">
+  <ion-button shape="round" (click)="logout()" *ngIf="viewCtl.showLogOut">
     <ion-icon slot='icon-only' name="ios-log-out"></ion-icon>
   </ion-button>
   </ion-buttons>
