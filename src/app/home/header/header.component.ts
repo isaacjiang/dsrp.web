@@ -3,11 +3,13 @@
  */
 import {Component} from '@angular/core';
 import {AlertController, Events} from '@ionic/angular';
+import {User} from '../../services/user.service';
 
 
 @Component({
     selector: 'edp-header',
-    templateUrl: 'header.component.html'
+    templateUrl: 'header.component.html',
+    styleUrls: ['header.component.scss']
 })
 
 
@@ -17,7 +19,7 @@ export class HeaderComponent {
     public viewCtl = {showJoinTeam: true, showSignup: true, showLogOut: true};
 
 
-    constructor(public alertController: AlertController, public events: Events) {
+    constructor(public alertController: AlertController, public events: Events, public user: User) {
     }
 
 //     eventsHandles(root) {
@@ -156,8 +158,7 @@ export class HeaderComponent {
     async signUp() {
         const prompt = await this.alertController.create({
             header: 'SignUp',
-            mode: 'ios',
-            cssClass: 'user-sign-up-alert',
+
             // message: 'Enter a name for this new album you're so keen on adding',
             inputs: [
                 {
@@ -193,13 +194,15 @@ export class HeaderComponent {
                         console.log('Cancel clicked');
                         data.permission = 1;
                         if (data.username !== '' && data.password !== '' && data.username.length >= 6 && data.password === data.password2) {
-                            this.events.publish('signup-do-signup', data);
+                            // this.events.publish('signup-do-signup', data);
+                            this._doSignup(data);
                         } else {
 // todo send message
                         }
                     }
                 }
-            ]
+            ],
+            cssClass: 'userSignUpAlert'
         });
 
 //         if (this.current_user.permission === 0) {
@@ -218,8 +221,55 @@ export class HeaderComponent {
 //             });
 //         }
 
-        // prompt.setAttribute('--min-width', '600px');
+
         await prompt.present();
+    }
+
+
+    private _doLogin(account) {
+        this.user.login(account).subscribe((resp) => {
+            // console.log(1,resp)
+
+            // if(resp["login_status"]){
+            //     this.navCtrl.pop()
+            //     this.authentication()
+            //     // this.events.publish("root-login-modal-dismiss",this.current_user)
+            // }
+            // else{
+            //     console.log(resp["message"])
+            // }
+        });
+
+    }
+
+    private _doSignup(account) {
+        console.log(account);
+
+        this.user.signup(account).subscribe((resp) => {
+            console.log(1, resp);
+
+            // if(resp["register_status"]){
+            //     if (this.navCtrl.length()>1){this.navCtrl.pop()}
+            //     this.authentication()
+            //     // this.events.publish("root-login-modal-dismiss",this.current_user)
+            // }
+            // else{
+            //     console.log(resp["message"])
+            // }
+        });
+
+    }
+
+    private _doLogout() {
+        this.user.logout().subscribe((resp) => {
+            // console.log("logout",resp)
+            // if(resp["logout_status"]){
+            //     this.authentication()
+            // }
+            // else{
+            //     console.log(resp["message"])
+            // }
+        });
     }
 
 
