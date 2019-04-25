@@ -2,8 +2,9 @@
  * Created by isaacjiang on 2017-09-01.
  */
 import {Component} from '@angular/core';
-import {AlertController, Events} from '@ionic/angular';
+import {AlertController, Events, NavController} from '@ionic/angular';
 import {User} from '../../services/user.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class HeaderComponent {
     public viewCtl = {showJoinTeam: true, showSignup: true, showLogOut: true};
 
 
-    constructor(public alertController: AlertController, public events: Events, public user: User) {
+    constructor(public alertController: AlertController, public router: Router, public user: User) {
+         this.authentication();
     }
 
 //     eventsHandles(root) {
@@ -225,22 +227,26 @@ export class HeaderComponent {
         await prompt.present();
     }
 
-
-    private _doLogin(account) {
-        this.user.login(account).subscribe((resp) => {
-            // console.log(1,resp)
-
-            // if(resp["login_status"]){
-            //     this.navCtrl.pop()
-            //     this.authentication()
-            //     // this.events.publish("root-login-modal-dismiss",this.current_user)
+    public authentication() {
+        this.user.status().subscribe((resp) => {
+            console.log(resp);
+            this.current_user = resp;
+            // if (this.loader != undefined) {
+            //     this.loader.dismiss();
             // }
-            // else{
-            //     console.log(resp["message"])
-            // }
+            // this.events.publish('root-update-user-status', this.current_user);
+            if (this.current_user != null && this.current_user['anonymous']) {
+                 // this.navController.push(Welcome);
+                this.router.navigate(['/welcome']);
+            } else {
+                // this.upateUserInfo(this.current_user.username);
+                // this.loadFixedMenu('home');
+                // this.loadContentView('mainpage1');
+            }
         });
-
     }
+
+
 
     private _doSignup(account) {
         console.log(account);

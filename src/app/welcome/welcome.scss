@@ -1,0 +1,14 @@
+.welcome-anim {
+  position: fixed;
+  min-width: 100%;
+  width: auto;
+  height: auto;
+}
+.welcome-buttons{
+  position: absolute;
+  top:50%;
+  left:calc(50% - 240px);
+  ion-button{
+    width: 240px;
+  }
+}

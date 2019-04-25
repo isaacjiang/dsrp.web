@@ -29,7 +29,7 @@ export class User {
     }
 
     status() {
-        return this.api.get('/api/users/userstatus');
+        return this.api.get('/api/user/status');
     }
 
 
@@ -38,7 +38,11 @@ export class User {
      * the user entered on the form.
      */
     login(accountInfo: any) {
-        return this.api.post('/api/users/login', accountInfo);
+        const data = new FormData();
+        data.append('username', accountInfo['username']);
+        data.append('password', accountInfo['password']);
+        console.log(data.get('username'), data.get('password'));
+        return this.api.post('/api/login', data);
     }
 
     /**
@@ -50,7 +54,7 @@ export class User {
     }
 
     logout() {
-        return this.api.get('/api/users/logout');
+        return this.api.get('/api/user/logout');
     }
 
 
