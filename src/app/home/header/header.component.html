@@ -86,7 +86,7 @@
           <ion-col size="2">
 <ion-buttons>
   <ion-button clear block>
-    {{ current_user['username'] }}
+    {{ current_user==null?"Anonymous":current_user['username'] }}
   </ion-button>
   <ion-button shape="round" (click)="joinTeam()" *ngIf="viewCtl.showJoinTeam">
     <ion-icon slot='icon-only' name="ios-contacts"></ion-icon>

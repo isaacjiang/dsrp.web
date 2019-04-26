@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 
 import {Api} from './api.service';
+import {HttpHeaders} from '@angular/common/http';
 
 /**
  * Most apps have the concept of a User. This is a simple provider
@@ -28,8 +29,8 @@ export class User {
 
     }
 
-    status() {
-        return this.api.get('/api/user/status');
+    status(username: any) {
+        return this.api.get('/api/user/status/' + username);
     }
 
 
@@ -37,12 +38,14 @@ export class User {
      * Send a POST request to our login endpoint with the data
      * the user entered on the form.
      */
-    login(accountInfo: any) {
-        const data = new FormData();
-        data.append('username', accountInfo['username']);
-        data.append('password', accountInfo['password']);
-        console.log(data.get('username'), data.get('password'));
-        return this.api.post('/api/login', data);
+    login(user: any) {
+        const credentials = 'username=' + user.username + '&password=' + user.password;
+        let header = new HttpHeaders();
+        header = header.append('Accept', '*/*');
+        header = header.append('Content-Type', 'application/x-www-form-urlencoded');
+        header = header.append('Authorization', 'Basic ' + btoa(user.username + ':' + user.password));
+        // console.log(credentials);
+        return this.api.post('/api/login', credentials, {headers: header});
     }
 
     /**

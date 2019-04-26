@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import {HeaderComponent} from './header/header.component';
 import {RouterModule} from '@angular/router';
+import {WelcomeModule} from '../welcome/welcome.module';
 
 @NgModule({
   imports: [

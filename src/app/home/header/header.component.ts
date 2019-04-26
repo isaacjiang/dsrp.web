@@ -4,7 +4,7 @@
 import {Component} from '@angular/core';
 import {AlertController, Events, NavController} from '@ionic/angular';
 import {User} from '../../services/user.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -15,13 +15,18 @@ import {Router} from '@angular/router';
 
 
 export class HeaderComponent {
-    public current_user: any = {username: ''};
+    public current_user: any = {};
     // public user_info:any;
     public viewCtl = {showJoinTeam: true, showSignup: true, showLogOut: true};
 
 
-    constructor(public alertController: AlertController, public router: Router, public user: User) {
-         this.authentication();
+    constructor(public alertController: AlertController, private route: ActivatedRoute, private router: Router, public user: User) {
+        this.route.queryParams.subscribe(params => {
+            if (this.router.getCurrentNavigation().extras.state) {
+                this.current_user = this.router.getCurrentNavigation().extras.state.current_user;
+            }
+            this.authentication();
+        });
     }
 
 //     eventsHandles(root) {
@@ -191,7 +196,7 @@ export class HeaderComponent {
                     }
                 },
                 {
-                    text: 'Regular User',
+                    text: 'Regular',
                     handler: data => {
                         console.log('Cancel clicked');
                         data.permission = 1;
@@ -207,35 +212,38 @@ export class HeaderComponent {
             cssClass: 'userSignUpAlert'
         });
 
-//         if (this.current_user.permission === 0) {
-//             prompt.addButton({
-//                 text: 'Administrator',
-//                 handler: data => {
-//                     console.log('Saved clicked', data);
-//                     data.permission = 0;
-//                     if (data.username !== '' && data.password !== '' && data.username.length >= 6 && data.password === data.password2) {
-//                         this.events.publish('signup-do-signup', data);
-//                     } else {
-// // todo send message
-//                     }
-//
-//                 }
-//             });
-//         }
+        if (this.current_user.permission === '0') {
+            console.log('++++', prompt.buttons);
+          await prompt.buttons.push({
+                text: 'Admin',
+                handler: data => {
+                    console.log('Saved clicked', data);
+                    data.permission = '0';
+                    if (data.username !== '' && data.password !== '' && data.username.length >= 6 && data.password === data.password2) {
+                      //  this.events.publish('signup-do-signup', data);
+                    } else {
+// todo send message
+                    }
+
+                }
+            });
+            console.log('++++', prompt.buttons);
+        }
 
 
         await prompt.present();
     }
 
     public authentication() {
-        this.user.status().subscribe((resp) => {
+        console.log(this.current_user);
+        this.user.status(this.current_user.username).subscribe((resp) => {
             console.log(resp);
             this.current_user = resp;
             // if (this.loader != undefined) {
             //     this.loader.dismiss();
             // }
             // this.events.publish('root-update-user-status', this.current_user);
-            if (this.current_user != null && this.current_user['anonymous']) {
+            if (this.current_user == null || this.current_user['anonymous']) {
                  // this.navController.push(Welcome);
                 this.router.navigate(['/welcome']);
             } else {

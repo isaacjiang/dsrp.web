@@ -18,6 +18,8 @@ import {User} from '../services/user.service';
 })
 export class Welcome {
 
+    public current_user: any = {username: ''};
+
     constructor(public events: Events, public alertCtrl: AlertController, public router: Router, public user: User) {
 
     }
@@ -117,16 +119,15 @@ export class Welcome {
 
     private _doLogin(account) {
         this.user.login(account).subscribe((resp) => {
-             console.log(1, resp);
-
-            // if(resp["login_status"]){
-            //     this.navCtrl.pop()
-            //     this.authentication()
-            //     // this.events.publish("root-login-modal-dismiss",this.current_user)
-            // }
-            // else{
-            //     console.log(resp["message"])
-            // }
+            // console.log(1, resp);
+            this.current_user = resp;
+            if (resp['authenticated']) {
+                this.router.navigate(['/home'], {
+                    state: {current_user: this.current_user}
+                });
+            } else {
+                console.log('Authenticate Failure. ');
+            }
         });
 
     }
