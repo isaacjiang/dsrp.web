@@ -68,6 +68,13 @@ export class HeaderComponent {
     }
 
     async joinTeam() {
+        let inputs = [];
+        this.user.getGroupAll().subscribe(group => {
+            console.log('Group', typeof group);
+              // inputs = group;
+        });
+
+
         const alert = await this.alertController.create({
             header: 'SignUp',
             // message: 'Enter a name for this new album you're so keen on adding',

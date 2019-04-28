@@ -32,6 +32,9 @@ export class User {
     status(username: any) {
         return this.api.get('/api/user/status/' + username);
     }
+    getGroupAll() {
+        return this.api.get('/api/group/all');
+    }
 
 
     /**
