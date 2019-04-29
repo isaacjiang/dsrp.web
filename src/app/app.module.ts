@@ -6,15 +6,16 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import {User} from './services/user.service';
-import {Api} from './services/api.service';
+
 import {HttpClientModule} from '@angular/common/http';
+import {OrgService} from './services/org.service';
+import {HttpService} from './services/http.service';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
-  providers: [Api, User,
+  providers: [HttpService, OrgService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

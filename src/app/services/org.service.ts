@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {Api} from './api.service';
+import {HttpService} from './http.service';
 import {HttpHeaders} from '@angular/common/http';
 
 /**
@@ -23,19 +23,26 @@ import {HttpHeaders} from '@angular/common/http';
  * If the `status` field is not `success`, then an error is detected and returned.
  */
 @Injectable()
-export class User {
+export class OrgService {
 
-    constructor(public api: Api) {
+    constructor(public httpService: HttpService) {
 
     }
 
     status(username: any) {
-        return this.api.get('/api/user/status/' + username);
+        return this.httpService.get('/api/user/status/' + username);
     }
     getGroupAll() {
-        return this.api.get('/api/group/all');
+        return this.httpService.get('/api/group/all');
     }
 
+    getCompanyAll() {
+        return this.httpService.get('/api/company/all');
+    }
+
+    getCompanyBase() {
+        return this.httpService.get('/api/company/base');
+    }
 
     /**
      * Send a POST request to our login endpoint with the data
@@ -48,7 +55,7 @@ export class User {
         header = header.append('Content-Type', 'application/x-www-form-urlencoded');
         header = header.append('Authorization', 'Basic ' + btoa(user.username + ':' + user.password));
         // console.log(credentials);
-        return this.api.post('/api/login', credentials, {headers: header});
+        return this.httpService.post('/api/login', credentials, {headers: header});
     }
 
     /**
@@ -56,11 +63,11 @@ export class User {
      * the user entered on the form.
      */
     signup(accountInfo: any) {
-        return this.api.post('/api/register', accountInfo);
+        return this.httpService.post('/api/register', accountInfo);
     }
 
     logout() {
-        return this.api.get('/api/user/logout');
+        return this.httpService.get('/api/user/logout');
     }
 
 

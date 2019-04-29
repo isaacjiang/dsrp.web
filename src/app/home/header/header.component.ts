@@ -3,8 +3,9 @@
  */
 import {Component} from '@angular/core';
 import {AlertController, Events, NavController} from '@ionic/angular';
-import {User} from '../../services/user.service';
+import {OrgService} from '../../services/org.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {HttpService} from '../../services/http.service';
 
 
 @Component({
@@ -16,11 +17,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 export class HeaderComponent {
     public current_user: any = {};
-    // public user_info:any;
+    public user_detail: any;
     public viewCtl = {showJoinTeam: true, showSignup: true, showLogOut: true};
 
 
-    constructor(public alertController: AlertController, private route: ActivatedRoute, private router: Router, public user: User) {
+    constructor(public alertController: AlertController, private route: ActivatedRoute, private router: Router,
+                public orgService: OrgService, public httpService: HttpService) {
         this.route.queryParams.subscribe(params => {
             if (this.router.getCurrentNavigation().extras.state) {
                 this.current_user = this.router.getCurrentNavigation().extras.state.current_user;
@@ -67,102 +69,59 @@ export class HeaderComponent {
         // this.events.publish('header-toggle-menu',menuId)
     }
 
-    async joinTeam() {
-        let inputs = [];
-        this.user.getGroupAll().subscribe(group => {
-            console.log('Group', typeof group);
-              // inputs = group;
+
+    joinTeam() {
+        const inputs = [];
+        const buttons = [];
+        const root = this;
+        const buttonClick = function (data) {
+            if (data === undefined) {
+                console.log('PLease select Group ' + data);
+            } else {
+                root.httpService.post('/api/user/join', {
+                    uid: root.current_user['uid'],
+                    username: root.current_user['username'],
+                    companyId: data + this.companyId.substr(this.companyId.length - 3),
+                    groupId: data
+                })
+                    .subscribe(resp => {
+                    console.log(resp);
+                    // this.events.publish('header-load-page','home')
+                    // this.updateViewCtrl(this.current_user)
+                });
+            }
+        }
+        this.orgService.getGroupAll().toPromise().then((group) => {
+            const groupArray =  JSON.parse(JSON.stringify(group));
+            groupArray.forEach(group1 => {
+                console.log('Group', group1);
+                inputs.push({type: 'radio',
+                    label: group1['groupName'],
+                    value: group1['id']});
+            });
+            this.orgService.getCompanyBase().toPromise().then((company) => {
+                const companyArray = JSON.parse(JSON.stringify(company));
+                console.log(companyArray);
+                companyArray.forEach(company1 => {
+                    buttons.push({
+                        companyId: company1['id'],
+                        text: company1['companyName'],
+                        handler: buttonClick
+                    });
+                });
+                this.joinTeamAlert(inputs, buttons);
+            });
         });
-
-
+    }
+    async joinTeamAlert(inputs, buttons) {
+        // const inputs = [];
         const alert = await this.alertController.create({
             header: 'SignUp',
             // message: 'Enter a name for this new album you're so keen on adding',
-            inputs: [
-                {
-                    type: 'radio',
-                    label: 'Team A',
-                    value: 'Team A'
-                },
-                {
-                    type: 'radio',
-                    label: 'Team B',
-                    value: 'Team B'
-                },
-                {
-                    type: 'radio',
-                    label: 'Team C',
-                    value: 'Team C'
-                },
-                {
-                    type: 'radio',
-                    label: 'Team D',
-                    value: 'Team D'
-                },
-                {
-                    type: 'radio',
-                    label: 'Team E',
-                    value: 'Team E'
-                },
-                {
-                    type: 'radio',
-                    label: 'Team F',
-                    value: 'Team F'
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Join LegacyCo',
-                    handler: data => {
-                        console.log('Join LegacyCo' + data);
-
-
-                        // this.api.post('/api/dtools/jointeam',{
-                        //   username: this.current_user.username,
-                        //   //taskID:this.task_info.taskID,
-                        //   companyName :'LegacyCo',
-                        //   teamName : data,
-                        //   //period:this.task_info.period,
-                        //   data:{username:this.current_user.username,
-                        //     teamName:data,
-                        //     companyName: 'LegacyCo',
-                        //     userrole: 'CEO'}
-                        // }).subscribe(resp=>{
-                        //    console.log(resp)
-                        //   this.events.publish('header-load-page','home')
-                        //   this.updateViewCtrl(this.current_user)
-                        // })
-
-
-                    }
-                },
-                {
-                    text: 'Join NewCo',
-                    handler: data => {
-                        console.log('Cancel clicked');
-                        // this.api.post('/api/dtools/jointeam',{
-                        //   username: this.current_user.username,
-                        //   //taskID:this.task_info.taskID,
-                        //   companyName :'LegacyCo',
-                        //   teamName : data,
-                        //   //period:this.task_info.period,
-                        //   data:{username:this.current_user.username,
-                        //     teamName:data,
-                        //     companyName: 'NewCo',
-                        //     userrole: 'CEO'}
-                        // }).subscribe(resp=>{
-                        //   console.log(resp)
-                        //   this.events.publish('header-load-page','home')
-                        //   this.updateViewCtrl(this.current_user)
-                        // })
-                    }
-                }
-            ]
+            inputs: inputs,
+            buttons: buttons
         });
-
-
-        await alert.present();
-
+        return alert.present();
     }
 
     logout() {
@@ -243,7 +202,7 @@ export class HeaderComponent {
 
     public authentication() {
         console.log(this.current_user);
-        this.user.status(this.current_user.username).subscribe((resp) => {
+        this.orgService.status(this.current_user.username).subscribe((resp) => {
             console.log(resp);
             this.current_user = resp;
             // if (this.loader != undefined) {
@@ -251,8 +210,7 @@ export class HeaderComponent {
             // }
             // this.events.publish('root-update-user-status', this.current_user);
             if (this.current_user == null || this.current_user['anonymous']) {
-                 // this.navController.push(Welcome);
-                this.router.navigate(['/welcome']);
+               // this.router.navigate(['/welcome']);
             } else {
                 // this.upateUserInfo(this.current_user.username);
                 // this.loadFixedMenu('home');
@@ -266,7 +224,7 @@ export class HeaderComponent {
     private _doSignup(account) {
         console.log(account);
 
-        this.user.signup(account).subscribe((resp) => {
+        this.orgService.signup(account).subscribe((resp) => {
             console.log(1, resp);
 
             // if(resp["register_status"]){
@@ -282,7 +240,7 @@ export class HeaderComponent {
     }
 
     private _doLogout() {
-        this.user.logout().subscribe((resp) => {
+        this.orgService.logout().subscribe((resp) => {
             // console.log("logout",resp)
             // if(resp["logout_status"]){
             //     this.authentication()
