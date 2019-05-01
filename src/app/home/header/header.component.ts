@@ -2,7 +2,7 @@
  * Created by isaacjiang on 2017-09-01.
  */
 import {Component} from '@angular/core';
-import {AlertController, Events, NavController} from '@ionic/angular';
+import {AlertController, Events, MenuController, NavController} from '@ionic/angular';
 import {OrgService} from '../../services/org.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpService} from '../../services/http.service';
@@ -22,6 +22,7 @@ export class HeaderComponent {
 
 
     constructor(public alertController: AlertController, private route: ActivatedRoute, private router: Router,
+                public menuController: MenuController,
                 public orgService: OrgService, public httpService: HttpService) {
         this.route.queryParams.subscribe(params => {
             if (this.router.getCurrentNavigation().extras.state) {
@@ -66,6 +67,9 @@ export class HeaderComponent {
     }
 
     toggleMenu(menuId) {
+        console.log(menuId);
+        this.menuController.enable(true, menuId);
+        this.menuController.open(menuId);
         // this.events.publish('header-toggle-menu',menuId)
     }
 

@@ -2,19 +2,21 @@
   <edp-header></edp-header>
 </ion-header>
 
-<!--<ion-menu type="overlay" [content]="mainMenu" side="left" id="main">-->
-<!--&lt;!&ndash;  <edp-directive-menu-main></edp-directive-menu-main>&ndash;&gt;-->
-<!--</ion-menu>-->
+<ion-menu type = "overlay" side="start" menuId="action">
+  <edp-main-menu></edp-main-menu>
+</ion-menu>
 
-<!--<ion-menu type="overlay" [content]="mainMenu" side="right" id="help">-->
-<!--&lt;!&ndash;  <edp-directive-menu-help></edp-directive-menu-help>&ndash;&gt;-->
-<!--</ion-menu>-->
 
-<!--<ion-menu type="overlay" [content]="mainMenu" side="right" id="budget">-->
-<!--  <edp-directive-menu-budget></edp-directive-menu-budget>-->
-<!--</ion-menu>-->
+<ion-menu type="overlay" menuId="budget" side="end">
+  <edp-budget-menu></edp-budget-menu>
+</ion-menu>
 
-<ion-content class="ion-content" #mainMenu>
+<ion-menu type="overlay" menuId="help" side="end">
+    <edp-budget-menu></edp-budget-menu>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>
+<ion-content class="ion-content">
   <ion-grid >
     <ion-row style="height: 100%">
       <ion-col col-2 >

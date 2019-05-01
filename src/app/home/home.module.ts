@@ -7,7 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import {HeaderComponent} from './header/header.component';
 import {RouterModule} from '@angular/router';
-import {WelcomeModule} from '../welcome/welcome.module';
+import {MenuActionComponent} from './menu-action/menu.action.component';
+import {MenuBudgetComponent} from './menu-budget/menu.budget.component';
+import {HelpMenuComponent} from './menu-help/menu.help.component';
 
 @NgModule({
   imports: [
@@ -21,6 +23,6 @@ import {WelcomeModule} from '../welcome/welcome.module';
       }
     ])
   ],
-  declarations: [HomePage, HeaderComponent]
+  declarations: [HomePage, HeaderComponent, MenuActionComponent, MenuBudgetComponent,HelpMenuComponent]
 })
 export class HomePageModule {}

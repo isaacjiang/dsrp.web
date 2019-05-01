@@ -9,9 +9,9 @@
             <ion-icon slot='icon-only' name="ios-globe"></ion-icon>
             Home
           </ion-button>
-          <ion-button shape="round" (click)="loadPage('home')" >
+          <ion-button shape="round" (click)="toggleMenu('action')" >
             <ion-icon slot='icon-only' name="ios-list"></ion-icon>
-            Task
+            Action
           </ion-button>
           <ion-button shape="round" (click)="loadPage('home')" >
             <ion-icon slot='icon-only' name="ios-stats"></ion-icon>
@@ -25,11 +25,11 @@
             <ion-icon slot='icon-only' name="ios-switch"></ion-icon>
             Settings
           </ion-button>
-          <ion-button  shape="round" (click)="loadPage('home')" >
+          <ion-button  shape="round" (click)="toggleMenu('budget')" >
             <ion-icon slot='icon-only' name="ios-trending-up"></ion-icon>
             Budget
           </ion-button>
-          <ion-button shape="round" (click)="loadPage('home')" >
+          <ion-button shape="round" (click)="toggleMenu('help')" >
             <ion-icon slot='icon-only' name="ios-school"></ion-icon>
             Help
           </ion-button>
