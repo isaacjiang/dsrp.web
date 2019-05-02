@@ -4,25 +4,25 @@
 
 import 'rxjs';
 import {Component} from '@angular/core';
-import {Events} from '@ionic/angular';
 import {HttpService} from '../../services/http.service';
+import {OrgService} from '../../services/org.service';
 
 @Component({
     selector: 'edp-main-menu',
     templateUrl: './menu.action.component.html'
 })
-export class MenuActionComponent{
+export class MenuActionComponent {
     public title: any = 'Action Centre';
-
     public workflow: any;
 
-    constructor(public httpService: HttpService, public events: Events) {
+    constructor(public httpService: HttpService, public orgService: OrgService) {
     }
 
 
-    public initialiazation(current_user) {
+    public initialization() {
         const root = this;
-        const url = '/api/action/all' + '?username=' + current_user.username;
+        console.log(root.orgService.current_user);
+        const url = '/api/action/'  + this.orgService.current_user.companyId;
         this.httpService.get(url).subscribe((resp) => {
             console.log(resp);
             root.workflow = resp;

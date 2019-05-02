@@ -8,6 +8,7 @@ import {AlertController, Events, LoadingController, MenuController, ModalControl
 import {MenuActionComponent} from './menu-action/menu.action.component';
 import {HeaderComponent} from './header/header.component';
 import {ActivatedRoute, Router} from '@angular/router';
+import {OrgService} from '../services/org.service';
 
 
 @Component({
@@ -22,28 +23,26 @@ export class HomePage {
   @ViewChild(FixedMenuDirective) fixedMenuHost: FixedMenuDirective;
   @ViewChild(ContentDirective) contentHost: ContentDirective;
   @ViewChild(StatusDirective) statusMenuHost: StatusDirective;
-
-  public current_user: any;
-  public user_info: any;
   private loader: any;
   constructor(
-      public events: Events,
+      private events: Events,
       public menuCtrl: MenuController,
       public navCtrl: NavController,
       public modalCtl: ModalController,
-      public toastCtrl: ToastController,
+      public toastCtrl: ToastController, public orgService: OrgService,
       public loadingCtrl: LoadingController, private route: ActivatedRoute, private router: Router,
       private componentFactoryResolver: ComponentFactoryResolver) {
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.current_user = this.router.getCurrentNavigation().extras.state.current_user;
+        this.orgService.setCurrentUser(this.router.getCurrentNavigation().extras.state.current_user);
       }
-      // this.authentication();
     });
   }
 
   ionViewWillEnter() {
+    this.headerComponent.authentication();
+    this.eventsOn();
     // this.loader = this.loadingCtrl.create({
     //   content: 'Please wait...',
     //   duration: 2000
@@ -53,10 +52,18 @@ export class HomePage {
 
   ionViewDidEnter() {
     // this.current_user = this.headerComponent.current_user;
-    this.menuActionComponent.initialiazation(this.current_user);
+
   }
 
   ionViewWillLeave() {
+  }
+
+  eventsOn() {
+    const root = this;
+    this.events.unsubscribe('load-action-menu')
+    this.events.subscribe('load-action-menu', () => {
+      root.menuActionComponent.initialization();
+    });
   }
 
 

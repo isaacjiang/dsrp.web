@@ -24,9 +24,14 @@ import {HttpHeaders} from '@angular/common/http';
  */
 @Injectable()
 export class OrgService {
+    public current_user: any = {username: 'Anonymous', anonymous: true};
 
     constructor(public httpService: HttpService) {
 
+    }
+
+    setCurrentUser(user: any) {
+        this.current_user = user;
     }
 
     status(username: any) {

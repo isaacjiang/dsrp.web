@@ -1,11 +1,13 @@
 /**
  * Created by isaacjiang on 2017-09-01.
  */
-import {Component} from '@angular/core';
-import {AlertController, Events, MenuController, NavController} from '@ionic/angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, Events, MenuController} from '@ionic/angular';
 import {OrgService} from '../../services/org.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {HttpService} from '../../services/http.service';
+import {MenuActionComponent} from '../menu-action/menu.action.component';
+
 
 
 @Component({
@@ -16,37 +18,14 @@ import {HttpService} from '../../services/http.service';
 
 
 export class HeaderComponent {
-    public current_user: any = {};
-    public user_detail: any;
     public viewCtl = {showJoinTeam: true, showSignup: true, showLogOut: true};
 
-
-    constructor(public alertController: AlertController, private route: ActivatedRoute, private router: Router,
-                public menuController: MenuController,
+    constructor(public alertController: AlertController, private router: Router,
+                public menuController: MenuController, private events: Events,
                 public orgService: OrgService, public httpService: HttpService) {
-        this.route.queryParams.subscribe(params => {
-            if (this.router.getCurrentNavigation().extras.state) {
-                this.current_user = this.router.getCurrentNavigation().extras.state.current_user;
-            }
-            this.authentication();
-        });
     }
 
-//     eventsHandles(root) {
-//       root.events.subscribe('root-update-user-status', (user) => {
-//         this.current_user=user
-//         this.updateViewCtrl(user)
-//       })
-//       root.events.subscribe('root-login-success', (user) => {
-//         this.current_user=user
-//         this.updateViewCtrl(user)
-//       })
-//       root.events.subscribe('root-update-user-info', (user_info) => {
-//         this.user_info=user_info
-//         if(user_info.userInfo.status =='Init'){this.viewCtl.showJoinTeam=true}
-//       })
-//
-//     }
+
 //
 //     updateViewCtrl(current_user){
 //       if(current_user['status']){
@@ -70,7 +49,14 @@ export class HeaderComponent {
         console.log(menuId);
         this.menuController.enable(true, menuId);
         this.menuController.open(menuId);
-        // this.events.publish('header-toggle-menu',menuId)
+        switch (menuId) {
+            case 'action':
+                this.events.publish('load-action-menu', {});
+                break;
+            case 'help':
+                this.events.publish('load-action-menu', {});
+                break;
+        }
     }
 
 
@@ -83,18 +69,20 @@ export class HeaderComponent {
                 console.log('PLease select Group ' + data);
             } else {
                 root.httpService.post('/api/user/join', {
-                    uid: root.current_user['uid'],
-                    username: root.current_user['username'],
+                    uid: root.orgService.current_user['uid'],
+                    username: root.orgService.current_user['username'],
                     companyId: data + this.companyId.substr(this.companyId.length - 3),
                     groupId: data
                 })
                     .subscribe(resp => {
                     console.log(resp);
+                    root.orgService.setCurrentUser(resp);
+                    // root.current_user = resp;
                     // this.events.publish('header-load-page','home')
                     // this.updateViewCtrl(this.current_user)
                 });
             }
-        }
+        };
         this.orgService.getGroupAll().toPromise().then((group) => {
             const groupArray =  JSON.parse(JSON.stringify(group));
             groupArray.forEach(group1 => {
@@ -182,7 +170,7 @@ export class HeaderComponent {
             cssClass: 'userSignUpAlert'
         });
 
-        if (this.current_user.permission === '0') {
+        if (this.orgService.current_user.permission === '0') {
             console.log('++++', prompt.buttons);
           await prompt.buttons.push({
                 text: 'Admin',
@@ -205,22 +193,15 @@ export class HeaderComponent {
     }
 
     public authentication() {
-        console.log(this.current_user);
-        this.orgService.status(this.current_user.username).subscribe((resp) => {
-            console.log(resp);
-            this.current_user = resp;
-            // if (this.loader != undefined) {
-            //     this.loader.dismiss();
-            // }
-            // this.events.publish('root-update-user-status', this.current_user);
-            if (this.current_user == null || this.current_user['anonymous']) {
-               // this.router.navigate(['/welcome']);
-            } else {
-                // this.upateUserInfo(this.current_user.username);
-                // this.loadFixedMenu('home');
-                // this.loadContentView('mainpage1');
-            }
+
+        this.orgService.status(this.orgService.current_user.username).subscribe((resp) => {
+            this.orgService.setCurrentUser(resp);
         });
+        console.log(this.orgService.current_user);
+        if (this.orgService.current_user['anonymous']) {
+            this.router.navigate(['/welcome']);
+        }
+        return this.orgService.current_user;
     }
 
 
