@@ -8,7 +8,7 @@ import {AlertController, Events, LoadingController, MenuController, ModalControl
 import {MenuActionComponent} from './menu-action/menu.action.component';
 import {HeaderComponent} from './header/header.component';
 import {ActivatedRoute, Router} from '@angular/router';
-import {OrgService} from '../services/org.service';
+import {ShareService} from '../services/share.service';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class HomePage {
       public menuCtrl: MenuController,
       public navCtrl: NavController,
       public modalCtl: ModalController,
-      public toastCtrl: ToastController, public orgService: OrgService,
+      public toastCtrl: ToastController, public orgService: ShareService,
       public loadingCtrl: LoadingController, private route: ActivatedRoute, private router: Router,
       private componentFactoryResolver: ComponentFactoryResolver) {
 

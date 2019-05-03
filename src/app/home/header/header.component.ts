@@ -1,12 +1,12 @@
 /**
  * Created by isaacjiang on 2017-09-01.
  */
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, Events, MenuController} from '@ionic/angular';
-import {OrgService} from '../../services/org.service';
+import {ShareService} from '../../services/share.service';
 import {Router} from '@angular/router';
 import {HttpService} from '../../services/http.service';
-import {MenuActionComponent} from '../menu-action/menu.action.component';
+
 
 
 
@@ -22,7 +22,7 @@ export class HeaderComponent {
 
     constructor(public alertController: AlertController, private router: Router,
                 public menuController: MenuController, private events: Events,
-                public orgService: OrgService, public httpService: HttpService) {
+                public orgService: ShareService, public httpService: HttpService) {
     }
 
 

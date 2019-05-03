@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AlertController, Events} from '@ionic/angular';
 import {Router} from '@angular/router';
-import {OrgService} from '../services/org.service';
+import {ShareService} from '../services/share.service';
 
 
 /**
@@ -21,7 +21,7 @@ export class Welcome {
     public current_user: any = {username: ''};
 
     constructor(public events: Events, public alertCtrl: AlertController, public router: Router,
-                public orgService: OrgService) {
+                public shareService: ShareService) {
 
     }
 
@@ -119,7 +119,7 @@ export class Welcome {
     }
 
     private _doLogin(account) {
-        this.orgService.login(account).subscribe((resp) => {
+        this.shareService.login(account).subscribe((resp) => {
             // console.log(1, resp);
             this.current_user = resp;
             if (resp['authenticated']) {

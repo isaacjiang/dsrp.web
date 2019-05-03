@@ -10,10 +10,13 @@ import {RouterModule} from '@angular/router';
 import {MenuActionComponent} from './menu-action/menu.action.component';
 import {MenuBudgetComponent} from './menu-budget/menu.budget.component';
 import {HelpMenuComponent} from './menu-help/menu.help.component';
+import {PdfViewerComponent} from './functions/pdfviewer/pdfviewer';
+import {Forecasting} from './functions/forecasting/forecasting';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
 
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule, PdfViewerModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild([
@@ -23,6 +26,8 @@ import {HelpMenuComponent} from './menu-help/menu.help.component';
       }
     ])
   ],
-  declarations: [HomePage, HeaderComponent, MenuActionComponent, MenuBudgetComponent,HelpMenuComponent]
+  entryComponents: [Forecasting],
+  declarations: [HomePage, HeaderComponent, MenuActionComponent, MenuBudgetComponent, HelpMenuComponent,
+    PdfViewerComponent, Forecasting]
 })
 export class HomePageModule {}

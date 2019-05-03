@@ -23,8 +23,8 @@ import {HttpHeaders} from '@angular/common/http';
  * If the `status` field is not `success`, then an error is detected and returned.
  */
 @Injectable()
-export class OrgService {
-    public current_user: any = {username: 'Anonymous', anonymous: true};
+export class ShareService {
+    public current_user: any ={username: 'isaacjiang', anonymous: false}; // {username: 'Anonymous', anonymous: true};
 
     constructor(public httpService: HttpService) {
 
@@ -73,6 +73,13 @@ export class OrgService {
 
     logout() {
         return this.httpService.get('/api/user/logout');
+    }
+
+    public formatNum(num) {
+        const n = num.toString(), p = n.indexOf('.');
+        return n.replace(/\d(?=(?:\d{3})+(?:\.|$))/g, function ($0, i) {
+            return p < 0 || i < p ? ($0 + ',') : $0;
+        });
     }
 
 
