@@ -19,32 +19,35 @@ export class MenuActionComponent {
     public workflow: any;
 
     constructor(public httpService: HttpService, public menuController: MenuController,
-                public modalController: ModalController, public orgService: ShareService) {
+                public modalController: ModalController, public shareService: ShareService) {
     }
 
 
     public initialization() {
         const root = this;
         // console.log(root.orgService.current_user);
-        const url = '/api/action/'  + this.orgService.current_user.companyId;
+        const url = '/api/action/'  + this.shareService.current_user.companyId;
         this.httpService.get(url).subscribe((resp) => {
            // console.log(resp);
             root.workflow = resp;
         });
     }
 
-    public menuClick(param) {
+    public menuClick(params) {
         // this.events.publish('menu-click-item',funcName)
-         console.log(param);
-         switch (param.type) {
+         console.log(params);
+         // param['username'] = this.shareService.current_user.username;
+         // param['companyId'] = this.shareService.current_user.companyId;
+         // param['groupId'] = this.shareService.current_user.groupId;
+         // param['period'] = this.shareService.current_user.groupId;
+         switch (params.type) {
              case 'Forecasting':
-                 this._showForecasting(param);
+                 this._showForecasting(params);
          }
          this.menuController.close('action');
      }
 
     private async _showForecasting(params) {
-        params['username'] = this.orgService.current_user.username
         const modal = await this.modalController.create({
             component: Forecasting,
             componentProps: params,

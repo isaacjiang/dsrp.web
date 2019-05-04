@@ -26,7 +26,7 @@ export class Forecasting {
                 public modalCtl: ModalController,
                 public navParam: NavParams) {
         this.task_info = navParam.data;
-
+        console.log(this.task_info);
         this.initialization();
     }
 
@@ -41,11 +41,12 @@ export class Forecasting {
             this.parameters.labels = ['Niche #1', 'Niche #3', 'Niche #3', 'Total'];
         }
 
-        const urlParams = '?username=' + this.task_info.username + '&taskID=' + this.task_info.taskID
-            + '&companyName=' + this.task_info.companyName + '&teamName=' + this.task_info.teamName
-            + '&period=' + this.task_info.period;
-        this.httpService.get('/api/dtools/forecast' + urlParams)
+        // const urlParams = '?username=' + this.task_info.username + '&taskID=' + this.task_info.taskID
+        //     + '&companyName=' + this.task_info.companyName + '&teamName=' + this.task_info.teamName
+        //     + '&period=' + this.task_info.period;
+        this.httpService.get('/api/forecasting/' + this.shareService.current_user.companyId)
             .subscribe((forecast) => {
+                console.log(forecast)
                     if (Object.keys(forecast).length > 0) {
                         this.forcast = forecast;
                     }
@@ -60,14 +61,8 @@ export class Forecasting {
 
     private submit() {
         // console.log(this.forcast)
-        this.httpService.post('/api/dtools/forecast', {
-            username: this.task_info.username,
-            taskID: this.task_info.taskID,
-            companyName: this.task_info.companyName,
-            teamName: this.task_info.teamName,
-            period: this.task_info.period,
-            forecast: this.forcast
-        }).subscribe(resp => {
+        this.httpService.post('/api/forecasting/save', this.forcast
+        ).subscribe(resp => {
             console.log(resp);
             this.dismiss();
         });
