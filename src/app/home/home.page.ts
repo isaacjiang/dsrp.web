@@ -43,11 +43,11 @@ export class HomePage {
   ionViewWillEnter() {
     this.headerComponent.authentication();
     this.eventsOn();
-    // this.loader = this.loadingCtrl.create({
-    //   content: 'Please wait...',
-    //   duration: 2000
-    // });
-    // this.loader.present();
+    this.loader = this.loadingCtrl.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    this.loader.present();
   }
 
   ionViewDidEnter() {

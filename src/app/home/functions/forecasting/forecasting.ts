@@ -41,9 +41,7 @@ export class Forecasting {
             this.parameters.labels = ['Niche #1', 'Niche #3', 'Niche #3', 'Total'];
         }
 
-        // const urlParams = '?username=' + this.task_info.username + '&taskID=' + this.task_info.taskID
-        //     + '&companyName=' + this.task_info.companyName + '&teamName=' + this.task_info.teamName
-        //     + '&period=' + this.task_info.period;
+
         this.httpService.get('/api/forecasting/' + this.shareService.current_user.companyId)
             .subscribe((forecast) => {
                 console.log(forecast)
