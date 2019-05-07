@@ -22,7 +22,7 @@ export class HeaderComponent {
 
     constructor(public alertController: AlertController, private router: Router,
                 public menuController: MenuController, private events: Events,
-                public orgService: ShareService, public httpService: HttpService) {
+                public shareService: ShareService, public httpService: HttpService) {
     }
 
 
@@ -69,21 +69,21 @@ export class HeaderComponent {
                 console.log('PLease select Group ' + data);
             } else {
                 root.httpService.post('/api/user/join', {
-                    uid: root.orgService.current_user['uid'],
-                    username: root.orgService.current_user['username'],
+                    uid: root.shareService.current_user['uid'],
+                    username: root.shareService.current_user['username'],
                     companyId: data + this.companyId.substr(this.companyId.length - 3),
                     groupId: data
                 })
                     .subscribe(resp => {
                     console.log(resp);
-                    root.orgService.setCurrentUser(resp);
+                    root.shareService.setCurrentUser(resp);
                     // root.current_user = resp;
                     // this.events.publish('header-load-page','home')
                     // this.updateViewCtrl(this.current_user)
                 });
             }
         };
-        this.orgService.getGroupAll().toPromise().then((group) => {
+        this.shareService.getGroupAll().toPromise().then((group) => {
             const groupArray =  JSON.parse(JSON.stringify(group));
             groupArray.forEach(group1 => {
                 console.log('Group', group1);
@@ -91,7 +91,7 @@ export class HeaderComponent {
                     label: group1['groupName'],
                     value: group1['id']});
             });
-            this.orgService.getCompanyBase().toPromise().then((company) => {
+            this.shareService.getCompanyBase().toPromise().then((company) => {
                 const companyArray = JSON.parse(JSON.stringify(company));
                 console.log(companyArray);
                 companyArray.forEach(company1 => {
@@ -170,7 +170,7 @@ export class HeaderComponent {
             cssClass: 'userSignUpAlert'
         });
 
-        if (this.orgService.current_user.permission === '0') {
+        if (this.shareService.current_user.permission === '0') {
             console.log('++++', prompt.buttons);
           await prompt.buttons.push({
                 text: 'Admin',
@@ -194,14 +194,14 @@ export class HeaderComponent {
 
     public authentication() {
 
-        this.orgService.status(this.orgService.current_user.username).subscribe((resp) => {
-            this.orgService.setCurrentUser(resp);
+        this.shareService.status(this.shareService.current_user.username).subscribe((resp) => {
+            this.shareService.setCurrentUser(resp);
         });
-        console.log(this.orgService.current_user);
-        if (this.orgService.current_user['anonymous']) {
+        console.log(this.shareService.current_user);
+        if (this.shareService.current_user['anonymous']) {
             this.router.navigate(['/welcome']);
         }
-        return this.orgService.current_user;
+        return this.shareService.current_user;
     }
 
 
@@ -209,7 +209,7 @@ export class HeaderComponent {
     private _doSignup(account) {
         console.log(account);
 
-        this.orgService.signup(account).subscribe((resp) => {
+        this.shareService.signup(account).subscribe((resp) => {
             console.log(1, resp);
 
             // if(resp["register_status"]){
@@ -225,7 +225,7 @@ export class HeaderComponent {
     }
 
     private _doLogout() {
-        this.orgService.logout().subscribe((resp) => {
+        this.shareService.logout().subscribe((resp) => {
             // console.log("logout",resp)
             // if(resp["logout_status"]){
             //     this.authentication()

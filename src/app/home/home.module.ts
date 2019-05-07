@@ -13,6 +13,7 @@ import {HelpMenuComponent} from './menu-help/menu.help.component';
 import {PdfViewerComponent} from './functions/pdfviewer/pdfviewer';
 import {Forecasting} from './functions/forecasting/forecasting';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
+import {FooterComponent} from './footer/footer.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
     ])
   ],
   entryComponents: [Forecasting],
-  declarations: [HomePage, HeaderComponent, MenuActionComponent, MenuBudgetComponent, HelpMenuComponent,
+  declarations: [HomePage, HeaderComponent, FooterComponent, MenuActionComponent, MenuBudgetComponent, HelpMenuComponent,
     PdfViewerComponent, Forecasting]
 })
 export class HomePageModule {}

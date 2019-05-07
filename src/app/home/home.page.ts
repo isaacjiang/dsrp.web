@@ -23,19 +23,19 @@ export class HomePage {
   @ViewChild(FixedMenuDirective) fixedMenuHost: FixedMenuDirective;
   @ViewChild(ContentDirective) contentHost: ContentDirective;
   @ViewChild(StatusDirective) statusMenuHost: StatusDirective;
-  private loader: any;
+
   constructor(
       private events: Events,
       public menuCtrl: MenuController,
       public navCtrl: NavController,
-      public modalCtl: ModalController,
-      public toastCtrl: ToastController, public orgService: ShareService,
+      public modalCtl: ModalController, public loadingController: LoadingController,
+      public toastCtrl: ToastController, public shareService: ShareService,
       public loadingCtrl: LoadingController, private route: ActivatedRoute, private router: Router,
       private componentFactoryResolver: ComponentFactoryResolver) {
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.orgService.setCurrentUser(this.router.getCurrentNavigation().extras.state.current_user);
+        this.shareService.setCurrentUser(this.router.getCurrentNavigation().extras.state.current_user);
       }
     });
   }
@@ -43,15 +43,10 @@ export class HomePage {
   ionViewWillEnter() {
     this.headerComponent.authentication();
     this.eventsOn();
-    this.loader = this.loadingCtrl.create({
-      message: 'Please wait...',
-      duration: 2000
-    });
-    this.loader.present();
+    this.presentLoading();
   }
 
   ionViewDidEnter() {
-    // this.current_user = this.headerComponent.current_user;
 
   }
 
@@ -64,6 +59,16 @@ export class HomePage {
     this.events.subscribe('load-action-menu', () => {
       root.menuActionComponent.initialization();
     });
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      spinner: 'circles',
+      duration: 1000,
+      message: 'Loading Data...',
+      translucent: true
+    });
+    return await loading.present();
   }
 
 
