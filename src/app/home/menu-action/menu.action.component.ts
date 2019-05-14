@@ -43,6 +43,10 @@ export class MenuActionComponent {
          switch (params.type) {
              case 'Forecasting':
                  this._showForecasting(params);
+                 break;
+             case 'Recruit':
+                 this._showForecasting(params);
+                 break;
          }
          this.menuController.close('action');
      }
