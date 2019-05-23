@@ -26,7 +26,7 @@ export class MenuActionComponent {
     public initialization() {
         const root = this;
          console.log(root.shareService.current_user);
-        const url = '/api/action/'  + this.shareService.current_user.companyId;
+        const url = '/api/task/'  + this.shareService.current_user.companyId;
         this.httpService.get(url).subscribe((resp) => {
             console.log(resp);
             root.workflow = resp;

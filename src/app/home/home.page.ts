@@ -9,6 +9,7 @@ import {MenuActionComponent} from './menu-action/menu.action.component';
 import {HeaderComponent} from './header/header.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ShareService} from '../services/share.service';
+import {FooterComponent} from './footer/footer.component';
 
 
 @Component({
@@ -19,6 +20,7 @@ import {ShareService} from '../services/share.service';
 export class HomePage {
   @ViewChild(MenuActionComponent) menuActionComponent: MenuActionComponent;
   @ViewChild(HeaderComponent) headerComponent: HeaderComponent;
+  @ViewChild(FooterComponent) footerComponent: FooterComponent;
   @ViewChild(BudgetMenuDirective) budgetMenuHost: BudgetMenuDirective;
   @ViewChild(FixedMenuDirective) fixedMenuHost: FixedMenuDirective;
   @ViewChild(ContentDirective) contentHost: ContentDirective;
@@ -42,6 +44,7 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.headerComponent.authentication();
+    this.footerComponent.refresh();
     this.eventsOn();
     this.presentLoading();
   }
@@ -55,9 +58,17 @@ export class HomePage {
 
   eventsOn() {
     const root = this;
-    this.events.unsubscribe('load-action-menu')
+    this.events.unsubscribe('load-action-menu');
+    this.events.unsubscribe('refresh-footer');
+    this.events.unsubscribe('send-message');
     this.events.subscribe('load-action-menu', () => {
       root.menuActionComponent.initialization();
+    });
+    this.events.subscribe('refresh-footer', () => {
+      root.footerComponent.refresh();
+    });
+    this.events.subscribe('send-message', (message) => {
+      root.footerComponent.messaging(message);
     });
   }
 

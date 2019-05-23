@@ -57,6 +57,7 @@ export class HeaderComponent {
                 this.events.publish('load-action-menu', {});
                 break;
         }
+        this.events.publish('send-message', 'toggle menu');
     }
 
 
@@ -75,11 +76,10 @@ export class HeaderComponent {
                     groupId: data
                 })
                     .subscribe(resp => {
-                    console.log(resp);
+                    // console.log(resp);
                     root.shareService.setCurrentUser(resp);
-                    // root.current_user = resp;
-                    // this.events.publish('header-load-page','home')
-                    // this.updateViewCtrl(this.current_user)
+                    root.events.publish('refresh-footer', {});
+
                 });
             }
         };

@@ -17,18 +17,29 @@ import {HttpService} from '../../services/http.service';
 
 export class FooterComponent {
 
-    public companySummary ={}
+    public companySummary = {};
+    public sys_message = '';
     constructor(public alertController: AlertController, private router: Router,
                 public menuController: MenuController, private events: Events,
                 public shareService: ShareService, public httpService: HttpService) {
-        this.loadCompanySummary();
     }
-    public loadCompanySummary() {
-        const url = '/api/company/summary/000001001' ; // + this.shareService.current_user.companyId;
-        this.httpService.get(url).subscribe((resp) => {
-            console.log(resp);
-            this.companySummary = resp;
-        });
+
+    public refresh() {
+        console.log(this.shareService.current_user);
+        if (this.shareService.current_user.companyId !== undefined) {
+            const url = '/api/company/summary/'  + this.shareService.current_user.companyId;
+            this.httpService.get(url).subscribe((resp) => {
+                console.log(resp);
+                this.companySummary = resp;
+            });
+        }
+    }
+    public messaging(message: string) {
+        this.sys_message = message;
+
+        setTimeout(() => {
+            this.sys_message = '';
+        }, 5000);
     }
 
 
