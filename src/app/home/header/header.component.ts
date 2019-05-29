@@ -26,21 +26,6 @@ export class HeaderComponent {
     }
 
 
-//
-//     updateViewCtrl(current_user){
-//       if(current_user['status']){
-//         console.log(current_user)
-//         if(current_user['status']['is_authenticated']){
-//           this.viewCtl.showLogOut=true
-//           if(current_user['permission']==0){ this.viewCtl.showSignup=true}
-//         }
-//         else if(current_user['status']['is_anonymous']){
-//           this.viewCtl.showLogOut=false
-//           this.viewCtl.showSignup=false
-//         }
-//       }
-//     }
-//
     loadPage(pageName) {
         // this.events.publish('header-load-page',pageName)
     }
@@ -54,7 +39,7 @@ export class HeaderComponent {
                 this.events.publish('load-action-menu', {});
                 break;
             case 'help':
-                this.events.publish('load-action-menu', {});
+                this.events.publish('load-help-menu', {});
                 break;
         }
         this.events.publish('send-message', 'toggle menu');

@@ -68,10 +68,11 @@ export class Welcome {
 
     }
 
-    async signup() {
+    async signUp() {
         const prompt = await this.alertCtrl.create({
             header: 'SignUp',
-            // message: "Enter a name for this new album you're so keen on adding",
+
+            // message: 'Enter a name for this new album you're so keen on adding',
             inputs: [
                 {
                     name: 'username',
@@ -101,19 +102,40 @@ export class Welcome {
                     }
                 },
                 {
-                    text: 'Regular User',
+                    text: 'Regular',
                     handler: data => {
                         console.log('Cancel clicked');
                         data.permission = 1;
                         if (data.username !== '' && data.password !== '' && data.username.length >= 6 && data.password === data.password2) {
-                            this.events.publish('signup-do-signup', data);
+                            // this.events.publish('signup-do-signup', data);
+                            this._doSignup(data);
                         } else {
 // todo send message
                         }
                     }
                 }
-            ]
+            ],
+            cssClass: 'userSignUpAlert'
         });
+
+        if (this.shareService.current_user.permission === '0') {
+            console.log('++++', prompt.buttons);
+            await prompt.buttons.push({
+                text: 'Admin',
+                handler: data => {
+                    console.log('Saved clicked', data);
+                    data.permission = '0';
+                    if (data.username !== '' && data.password !== '' && data.username.length >= 6 && data.password === data.password2) {
+                        //  this.events.publish('signup-do-signup', data);
+                    } else {
+// todo send message
+                    }
+
+                }
+            });
+            console.log('++++', prompt.buttons);
+        }
+
 
         await prompt.present();
     }
@@ -129,6 +151,25 @@ export class Welcome {
             } else {
                 console.log('Authenticate Failure. ');
             }
+        });
+
+    }
+
+
+    private _doSignup(account) {
+        console.log(account);
+
+        this.shareService.signup(account).subscribe((resp) => {
+            console.log(1, resp);
+
+            // if(resp["register_status"]){
+            //     if (this.navCtrl.length()>1){this.navCtrl.pop()}
+            //     this.authentication()
+            //     // this.events.publish("root-login-modal-dismiss",this.current_user)
+            // }
+            // else{
+            //     console.log(resp["message"])
+            // }
         });
 
     }

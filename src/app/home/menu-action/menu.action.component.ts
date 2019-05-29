@@ -8,6 +8,7 @@ import {HttpService} from '../../services/http.service';
 import {ShareService} from '../../services/share.service';
 import {MenuController, ModalController} from '@ionic/angular';
 import {Forecasting} from '../functions/forecasting/forecasting';
+import {Hiring} from '../functions/hiring/hiring';
 
 @Component({
     selector: 'edp-main-menu',
@@ -45,7 +46,7 @@ export class MenuActionComponent {
                  this._showForecasting(params);
                  break;
              case 'Recruit':
-                 this._showForecasting(params);
+                 this._showHiring(params);
                  break;
          }
          this.menuController.close('action');
@@ -62,6 +63,22 @@ export class MenuActionComponent {
         // modal.setAttribute('backdrop-dismiss', 'false');
         // modal.setAttribute('css-class', 'modalcss');
         return await modal.present();
+    }
+
+    private async _showHiring(params) {
+
+        this.httpService.get('/api/employee/' + this.shareService.current_user.companyId)
+            .subscribe(async (employees) => {
+                console.log(employees);
+                const modal = await this.modalController.create({
+                    component: Hiring,
+                    componentProps: {params: params, data: employees},
+                    backdropDismiss: false,
+                    cssClass: 'modalCss',
+                });
+
+                return await modal.present();
+            });
     }
 
 }
