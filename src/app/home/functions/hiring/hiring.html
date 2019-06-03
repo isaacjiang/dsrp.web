@@ -1,92 +1,112 @@
 <ion-header>
-  <!--      <button ion-button  icon-only (click)="clickFileInput()">-->
-  <!--          <ion-icon name="document"></ion-icon>-->
-  <!--        <input #fileUpload id="selectedFile" type="file" (change)="fileChange($event)" ng2FileSelect-->
-  <!--               [uploader]="uploader" multiple style="display: none;">-->
-  <!--        &lt;!&ndash;<input type="file" id="selectedFile" (change)="fileChange($event)"  accept=".pdf" style="display: none">&ndash;&gt;-->
-  <!--      </button>-->
+    <!--      <button ion-button  icon-only (click)="clickFileInput()">-->
+    <!--          <ion-icon name="document"></ion-icon>-->
+            <input #fileUpload (change)="fileChange($event)" [uploader]="uploader"  accept="image/*"  id="selectedFile" ng2FileSelect
+                   style="display: none;" type="file">
+    <!--        &lt;!&ndash;<input type="file" id="selectedFile" (change)="fileChange($event)"  accept=".pdf" style="display: none">&ndash;&gt;-->
+    <!--      </button>-->
 
+    <ion-toolbar color="tertiary">
 
-  <ion-toolbar color="tertiary" >
+        <ion-title>Forecast</ion-title>
 
-    <ion-title>Forecast</ion-title>
+        <ion-buttons slot="end">
 
-    <ion-buttons slot="end">
+            <ion-button (click)="openPdf(1)">
+                <ion-icon name="document"></ion-icon>
+            </ion-button>
 
-      <ion-button  (click)="openPdf()">
-        <ion-icon name="document"></ion-icon>
-      </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button (click)="openPdf(task_info['infoFile'])">
+                <ion-icon name="information-circle"></ion-icon>
+            </ion-button>
+        </ion-buttons>
 
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="openPdf(task_info['infoFile'])">
-        <ion-icon name="information-circle"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
 
-    <ion-buttons slot="end">
-      <ion-button  (click)="dismiss()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="tabs" item-start>
+            <ion-segment-button [value]="parameters.tabs_value[0]">
+                {{parameters.tabs_disp[0]}}
+            </ion-segment-button>
 
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-toolbar >
-    <ion-segment [(ngModel)]="tabs" item-start>
-      <ion-segment-button [value]="parameters.tabs_value[0]">
-        {{parameters.tabs_disp[0]}}
-      </ion-segment-button>
-
-    </ion-segment>
-  </ion-toolbar>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div >
-  <ion-grid>
-    <ion-row style="border-bottom-width: 1px" *ngFor="let employee of employees">
-      <ion-col col-1></ion-col>
-      <ion-col col-4>
-        <ion-item>
-            <ion-avatar item-start>
-              <img src={{employee.url}}>
-            </ion-avatar>
-            <h2>{{employee.employeeName}} </h2>
-            <h3>{{employee.title}} </h3>
-            <p>Minimum Salary :{{employee.minimumSalary}} </p>
-        </ion-item>
+<!--    <input (uploadOutput)="onUploadOutput($event)" [options]="options" [uploadInput]="uploadInput" id="selectedFile" multiple ngFileSelect onclick="this.value = null" style="display: none;"  type="file">-->
+    <div>
+        <ion-grid>
+            <ion-row *ngFor="let employee of employees" style="border-bottom-width: 1px">
 
-      </ion-col>
-      <ion-col col-1>
-        <ion-buttons end >
-          <button ion-button  clear icon-only (click)="openPdf(employee.resume)" style="padding-top:20px">
-            <ion-icon name="information-circle"></ion-icon>
-          </button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col col-2>
-        <ion-input type="text" [placeholder]="employee.salaryOffer_t" [(ngModel)]="employee.salaryOffer_t" disabled style="padding-top:20px">
-        </ion-input>
-      </ion-col>
-      <ion-col col-4 >
-        <ion-range pin="true" snaps="true" [(ngModel)]="employee.salaryOffer" [min]="employee.minimumSalary" [max]="employee.minimumSalary*2" step="10000" (ionChange)="onChange(employee)" style="padding-top:20px">
-        <ion-icon range-left small name="remove"></ion-icon>
-        <ion-icon range-right name="add"></ion-icon>
+                <ion-col size="1"></ion-col>
+                <ion-col size="3">
+<!--                    <ion-item>-->
+<!--                        <ion-avatar item-start>-->
+<!--                            <img src={{employee.url}}>-->
+<!--                        </ion-avatar>-->
+<!--                        <h2>{{employee.employeeName}} </h2>-->
+<!--                        <h3>{{employee.title}} </h3>-->
+<!--                        <p>Minimum Salary :{{employee.minimumSalary}} </p>-->
+<!--                    </ion-item>-->
+                    <ion-item lines="none">
+                        <ion-avatar onclick="document.getElementById('selectedFile').click();" slot="start">
+                            <img src="assets/img/Businessman.png">
+                        </ion-avatar>
+                        <ion-label>
+                            <h2>{{employee.name}} </h2>
+                            <h3>{{employee.title}} </h3>
+                            <p>Minimum Salary :{{employee.minimumSalary}} </p>
+                        </ion-label>
+                        <ion-buttons>
+                            <ion-button (click)="openPdf(employee.resume)" >
+                                <ion-icon name="information-circle"></ion-icon>
+                            </ion-button>
+                        </ion-buttons>
+                    </ion-item>
 
-      </ion-range>
-      </ion-col>
-    </ion-row>
+                </ion-col>
+<!--                <ion-col col-1>-->
+<!--                    <ion-buttons end>-->
+<!--                        <button ion-button clear icon-only (click)="openPdf(employee.resume)" style="padding-top:20px">-->
+<!--                            <ion-icon name="information-circle"></ion-icon>-->
+<!--                        </button>-->
+<!--                    </ion-buttons>-->
+<!--                </ion-col>-->
+                <ion-col align-self-center size="2" text-center>
+                    <ion-input [(ngModel)]="employee.salaryOffer_t" [placeholder]="employee.salaryOffer_t" disabled
+                               type="text">
+                    </ion-input>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-range (ionChange)="onChange(employee)" [(ngModel)]="employee.salaryOffer" [max]="employee.minimumSalary*2" [min]="employee.minimumSalary"
+                               pin="true" snaps="true" step="10000"
+                               style="padding-top:20px">
+                        <ion-icon name="remove" range-left small></ion-icon>
+                        <ion-icon name="add" range-right></ion-icon>
+
+                    </ion-range>
+                </ion-col>
+            </ion-row>
 
 
-  </ion-grid>
+        </ion-grid>
 
-  </div>
-
+    </div>
 
 
 </ion-content>
 <ion-footer>
-  <ion-buttons style="margin-right: 90px;margin-bottom: 6px" end>
-    <button ion-button color="primary" (click)="submit()">Submit</button>
-  </ion-buttons>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="submit()" color="primary" fill="outline">Submit</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-footer>

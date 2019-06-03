@@ -1,29 +1,27 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
 import {Events, ModalController, NavParams} from '@ionic/angular';
 import {ShareService} from '../../../services/share.service';
 import {HttpService} from '../../../services/http.service';
 import {PdfViewerComponent} from '../pdfviewer/pdfviewer';
 
-
 @Component({
     selector: 'hiring',
     templateUrl: 'hiring.html'
 })
 export class Hiring {
-
     private task_info: any;
     private tabs: any;
     private parameters: any = {tabs_value: []};
     private employees: any;
-    // private uploader: FileUploader;
+
+    private uploader: FileUploader;
 
     constructor(public events: Events,
                 public shareService: ShareService,
                 public httpService: HttpService,
                 public modalCtl: ModalController,
                 public navParam: NavParams) {
-
         this.eventsHandles(this);
         this.initialization(this, navParam.data);
         this.fileUploadInit();
@@ -31,28 +29,27 @@ export class Hiring {
 
 
     public fileUploadInit() {
-        // this.uploader = new FileUploader({
-        //     url: '/api/files/upload',
-        //     method: 'POST',
-        //     autoUpload: true
-        // });
-        // this.uploader.onCompleteItem = (item: any, resp: any, status, opt) => {
-        //
-        //     // console.log(JSON.parse(resp))
-        //     this.task_info.infoFile = JSON.parse(resp);
-        //     this.httpService.post('/api/dtools/updatetaskfile', {
-        //         task_id: this.task_info._id,
-        //         infoFile: JSON.parse(resp)
-        //     }).subscribe(resp2 => {
-        //         console.log(resp2);
-        //         // $rootScope.tasklists.forEach(function (t) {
-        //         //   if (t._id == task._id){
-        //         //     t.infoFile = response.data[0]
-        //         //   }
-        //         // })
-        //     });
-        //
-        // };
+        this.uploader = new FileUploader({
+            url: '/api/files/upload',
+            method: 'POST',
+            autoUpload: true
+        });
+        this.uploader.onCompleteItem = (item: any, resp: any, status, opt) => {
+
+            console.log(JSON.parse(resp))
+            // this.task_info.infoFile = JSON.parse(resp);
+            // this.httpService.post('/api/dtools/updatetaskfile', {
+            //     task_id: this.task_info._id,
+            //     infoFile: JSON.parse(resp)
+            // }).subscribe(resp2 => {
+            //     console.log(resp2);
+            //     // $rootScope.tasklists.forEach(function (t) {
+            //     //   if (t._id == task._id){
+            //     //     t.infoFile = response.data[0]
+            //     //   }
+            //     // })
+            // });
+        };
     }
 
     private eventsHandles(root) {
@@ -60,7 +57,6 @@ export class Hiring {
             this.dismiss();
         });
     }
-
 
     private dismiss() {
         this.modalCtl.dismiss();
@@ -71,8 +67,9 @@ export class Hiring {
         root.task_info = params.params;
         root.employees = params.data;
         if (params.data.length > 0) {
-            const categoryMap = {}
+            const categoryMap = {};
             root.employees.forEach(employee => {
+                employee.minimumSalary = 100000;
                 categoryMap[employee.category] = employee.category;
             });
             root.parameters.tabs_value = Object.keys(categoryMap);
