@@ -24,7 +24,7 @@ import {HttpHeaders} from '@angular/common/http';
  */
 @Injectable()
 export class ShareService {
-    public current_user: any = {username: 'jakechen', anonymous: false}; // {username: 'Anonymous', anonymous: true};
+    public current_user: any = {username: 'jakechen0816', anonymous: false}; // {username: 'Anonymous', anonymous: true};
 
     constructor(public httpService: HttpService) {
 

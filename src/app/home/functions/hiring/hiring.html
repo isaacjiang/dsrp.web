@@ -11,11 +11,9 @@
         <ion-title>Forecast</ion-title>
 
         <ion-buttons slot="end">
-
             <ion-button (click)="openPdf(1)">
                 <ion-icon name="document"></ion-icon>
             </ion-button>
-
         </ion-buttons>
         <ion-buttons slot="end">
             <ion-button (click)="openPdf(task_info['infoFile'])">
@@ -27,7 +25,6 @@
             <ion-button (click)="dismiss()">
                 <ion-icon name="close"></ion-icon>
             </ion-button>
-
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
@@ -35,7 +32,6 @@
             <ion-segment-button [value]="parameters.tabs_value[0]">
                 {{parameters.tabs_disp[0]}}
             </ion-segment-button>
-
         </ion-segment>
     </ion-toolbar>
 </ion-header>
@@ -57,8 +53,8 @@
 <!--                        <p>Minimum Salary :{{employee.minimumSalary}} </p>-->
 <!--                    </ion-item>-->
                     <ion-item lines="none">
-                        <ion-avatar onclick="document.getElementById('selectedFile').click();" slot="start">
-                            <img src="assets/img/Businessman.png">
+                        <ion-avatar (click)="uploadAvatar(employee)" slot="start">
+                            <img [src]="employee['avatarId']==null?'assets/img/Businessman.png':'http://0.0.0.0/api/files/download/'+employee['avatarId']">
                         </ion-avatar>
                         <ion-label>
                             <h2>{{employee.name}} </h2>

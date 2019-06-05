@@ -14,6 +14,7 @@ export class Hiring {
     private tabs: any;
     private parameters: any = {tabs_value: []};
     private employees: any;
+    private currentEmployee: any;
 
     private uploader: FileUploader;
 
@@ -36,7 +37,14 @@ export class Hiring {
         });
         this.uploader.onCompleteItem = (item: any, resp: any, status, opt) => {
 
-            console.log(JSON.parse(resp))
+            // console.log(resp);
+            // console.log(this.currentEmployee);
+            this.currentEmployee['avatarId'] = resp;
+            this.httpService.post('/api/employee/save', this.currentEmployee)
+                .subscribe(results => {
+                    console.log(results);
+                });
+
             // this.task_info.infoFile = JSON.parse(resp);
             // this.httpService.post('/api/dtools/updatetaskfile', {
             //     task_id: this.task_info._id,
@@ -52,6 +60,12 @@ export class Hiring {
         };
     }
 
+    private uploadAvatar(e) {
+        this.currentEmployee = e;
+        document.getElementById('selectedFile').click();
+    }
+
+
     private eventsHandles(root) {
         root.events.subscribe('root-login-modal-dismiss', (param) => {
             this.dismiss();
@@ -63,7 +77,6 @@ export class Hiring {
     }
 
     private initialization(root, params) {
-        console.log(params);
         root.task_info = params.params;
         root.employees = params.data;
         if (params.data.length > 0) {
