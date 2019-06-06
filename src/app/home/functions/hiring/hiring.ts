@@ -37,27 +37,27 @@ export class Hiring {
         });
         this.uploader.onCompleteItem = (item: any, resp: any, status, opt) => {
 
-            // console.log(resp);
-            // console.log(this.currentEmployee);
-            this.currentEmployee['avatarId'] = resp;
-            this.httpService.post('/api/employee/save', this.currentEmployee)
-                .subscribe(results => {
-                    console.log(results);
-                });
+            console.log(resp);
+            console.log(this.currentEmployee);
+            if (this.currentEmployee['avatarId'] != null && this.currentEmployee['avatarId'] != undefined && this.currentEmployee['avatarId'] != '') {
+                this.httpService.get('/api/files/delete/'+this.currentEmployee['avatarId'])
+                    .subscribe(results => {
+                        console.log('delete',results);
+                        this.updateEmpolyeeAvatarId(resp);
+                    });
+            }else{
+                this.updateEmpolyeeAvatarId(resp);
+            }
 
-            // this.task_info.infoFile = JSON.parse(resp);
-            // this.httpService.post('/api/dtools/updatetaskfile', {
-            //     task_id: this.task_info._id,
-            //     infoFile: JSON.parse(resp)
-            // }).subscribe(resp2 => {
-            //     console.log(resp2);
-            //     // $rootScope.tasklists.forEach(function (t) {
-            //     //   if (t._id == task._id){
-            //     //     t.infoFile = response.data[0]
-            //     //   }
-            //     // })
-            // });
         };
+    }
+
+    private updateEmpolyeeAvatarId(avatarId){
+        this.currentEmployee['avatarId'] = avatarId;
+        this.httpService.post('/api/employee/save', this.currentEmployee)
+            .subscribe(results => {
+                console.log(results);
+            });
     }
 
     private uploadAvatar(e) {
