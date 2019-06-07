@@ -1,21 +1,28 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>{{title}}</ion-title>
-    <ion-buttons end style="margin-right: 20px">
-      <button ion-button  (click)="dismiss()" icon-only>
-        <ion-icon name="close"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-
+    <ion-toolbar color="primary">
+        <ion-title>{{title}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-
-
 <ion-content>
-
-  <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer>
-
-
+    <ion-toolbar>
+        <ion-buttons>
+            <ion-button (click)="onZoom(0.1)">
+                <ion-icon name="add"></ion-icon>
+            </ion-button>
+            <ion-button (click)="onZoom(1)">
+                100
+            </ion-button>
+            <ion-button (click)="onZoom(-0.1)">
+                <ion-icon name="remove"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <pdf-viewer [render-text]="true" [src]="pdfSrc" [zoom]="zoom" style="display: block;"></pdf-viewer>
 </ion-content>
 
 

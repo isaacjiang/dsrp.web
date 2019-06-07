@@ -157,11 +157,7 @@ export class Welcome {
 
 
     private _doSignup(account) {
-        console.log(account);
-
         this.shareService.signup(account).subscribe((resp) => {
-            console.log(1, resp);
-
             // if(resp["register_status"]){
             //     if (this.navCtrl.length()>1){this.navCtrl.pop()}
             //     this.authentication()

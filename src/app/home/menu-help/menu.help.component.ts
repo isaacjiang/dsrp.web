@@ -26,7 +26,6 @@ export class HelpMenuComponent {
         const root = this;
         const url = '/api/dtools/taskslist' + '?username=' + current_user.username;
         this.httpService.get(url).subscribe((resp) => {
-            console.log(resp);
             root.workflow = resp;
         });
     }

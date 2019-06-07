@@ -31,7 +31,6 @@ export class HeaderComponent {
     }
 
     toggleMenu(menuId) {
-        console.log(menuId);
         this.menuController.enable(true, menuId);
         this.menuController.open(menuId);
         switch (menuId) {
@@ -71,14 +70,14 @@ export class HeaderComponent {
         this.shareService.getGroupAll().toPromise().then((group) => {
             const groupArray =  JSON.parse(JSON.stringify(group));
             groupArray.forEach(group1 => {
-                console.log('Group', group1);
+                // console.log('Group', group1);
                 inputs.push({type: 'radio',
                     label: group1['groupName'],
                     value: group1['id']});
             });
             this.shareService.getCompanyBase().toPromise().then((company) => {
                 const companyArray = JSON.parse(JSON.stringify(company));
-                console.log(companyArray);
+                // console.log(companyArray);
                 companyArray.forEach(company1 => {
                     buttons.push({
                         companyId: company1['id'],
@@ -182,7 +181,7 @@ export class HeaderComponent {
         this.shareService.status(this.shareService.current_user.username).subscribe((resp) => {
             this.shareService.setCurrentUser(resp);
         });
-        console.log(this.shareService.current_user);
+        // console.log(this.shareService.current_user);
         if (this.shareService.current_user['anonymous']) {
             this.router.navigate(['/welcome']);
         }
@@ -192,10 +191,10 @@ export class HeaderComponent {
 
 
     private _doSignup(account) {
-        console.log(account);
+        // console.log(account);
 
         this.shareService.signup(account).subscribe((resp) => {
-            console.log(1, resp);
+            // console.log(1, resp);
 
             // if(resp["register_status"]){
             //     if (this.navCtrl.length()>1){this.navCtrl.pop()}

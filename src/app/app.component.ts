@@ -14,7 +14,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       // this.statusBar.styleDefault();
       // this.splashScreen.hide();
-      console.log('Platform is ready.');
+      // console.log('Platform is ready.');
     });
   }
 }

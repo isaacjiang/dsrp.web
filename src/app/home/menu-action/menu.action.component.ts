@@ -26,17 +26,17 @@ export class MenuActionComponent {
 
     public initialization() {
         const root = this;
-         console.log(root.shareService.current_user);
+         // console.log(root.shareService.current_user);
         const url = '/api/task/'  + this.shareService.current_user.companyId;
         this.httpService.get(url).subscribe((resp) => {
-            console.log(resp);
+            // console.log(resp);
             root.workflow = resp;
         });
     }
 
     public menuClick(params) {
         // this.events.publish('menu-click-item',funcName)
-         console.log(params);
+        //  console.log(params);
          // param['username'] = this.shareService.current_user.username;
          // param['companyId'] = this.shareService.current_user.companyId;
          // param['groupId'] = this.shareService.current_user.groupId;
@@ -69,7 +69,7 @@ export class MenuActionComponent {
 
         this.httpService.get('/api/employee/' + this.shareService.current_user.companyId)
             .subscribe(async (employees) => {
-                console.log(employees);
+                // console.log(employees);
                 const modal = await this.modalController.create({
                     component: Hiring,
                     componentProps: {params: params, data: employees},

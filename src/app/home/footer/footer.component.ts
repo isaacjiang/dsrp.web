@@ -25,7 +25,7 @@ export class FooterComponent {
     }
 
     public refresh() {
-        console.log(this.shareService.current_user);
+        // console.log(this.shareService.current_user);
         if (this.shareService.current_user.companyId !== undefined) {
             const url = '/api/company/summary/'  + this.shareService.current_user.companyId;
             this.httpService.get(url).subscribe((resp) => {

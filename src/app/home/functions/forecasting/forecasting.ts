@@ -26,7 +26,7 @@ export class Forecasting {
                 public modalCtl: ModalController,
                 public navParam: NavParams) {
         this.task_info = navParam.data;
-        console.log(this.task_info);
+        // console.log(this.task_info);
         this.initialization();
     }
 
@@ -44,7 +44,6 @@ export class Forecasting {
 
         this.httpService.get('/api/forecasting/' + this.shareService.current_user.companyId)
             .subscribe((forecast) => {
-                console.log(forecast)
                     if (Object.keys(forecast).length > 0) {
                         this.forcast = forecast;
                     }

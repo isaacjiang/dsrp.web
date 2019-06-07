@@ -16,12 +16,13 @@ export class Hiring {
     private employees: any;
     private currentEmployee: any;
 
-    private uploader: FileUploader;
+    private uploaderImage: FileUploader;
+    private uploaderPDF: FileUploader;
 
     constructor(public events: Events,
                 public shareService: ShareService,
                 public httpService: HttpService,
-                public modalCtl: ModalController,
+                public modalController: ModalController,
                 public navParam: NavParams) {
         this.eventsHandles(this);
         this.initialization(this, navParam.data);
@@ -30,39 +31,63 @@ export class Hiring {
 
 
     public fileUploadInit() {
-        this.uploader = new FileUploader({
+        this.uploaderImage = new FileUploader({
             url: '/api/files/upload',
             method: 'POST',
             autoUpload: true
         });
-        this.uploader.onCompleteItem = (item: any, resp: any, status, opt) => {
-
-            console.log(resp);
-            console.log(this.currentEmployee);
+        this.uploaderImage.onCompleteItem = (item: any, resp: any, status, opt) => {
             if (this.currentEmployee['avatarId'] != null && this.currentEmployee['avatarId'] != undefined && this.currentEmployee['avatarId'] != '') {
-                this.httpService.get('/api/files/delete/'+this.currentEmployee['avatarId'])
+                this.httpService.get('/api/files/delete/' + this.currentEmployee['avatarId'])
                     .subscribe(results => {
-                        console.log('delete',results);
-                        this.updateEmpolyeeAvatarId(resp);
+                        this.currentEmployee['avatarId'] = resp;
+                        this.updateEmpolyee();
                     });
-            }else{
-                this.updateEmpolyeeAvatarId(resp);
+            } else {
+                this.currentEmployee['avatarId'] = resp;
+                this.updateEmpolyee();
             }
+        };
 
+        this.uploaderPDF = new FileUploader({
+            url: '/api/files/upload',
+            method: 'POST',
+            autoUpload: true
+        });
+        this.uploaderPDF.onCompleteItem = (item: any, resp: any, status, opt) => {
+            if (this.currentEmployee['resumeId'] != null && this.currentEmployee['resumeId'] != undefined && this.currentEmployee['resumeId'] != '') {
+                this.httpService.get('/api/files/delete/' + this.currentEmployee['resumeId'])
+                    .subscribe(results => {
+                        this.currentEmployee['resumeId'] = resp;
+                        this.updateEmpolyee();
+                    });
+            } else {
+                this.currentEmployee['resumeId'] = resp;
+                this.updateEmpolyee();
+            }
         };
     }
 
-    private updateEmpolyeeAvatarId(avatarId){
-        this.currentEmployee['avatarId'] = avatarId;
+    async presentModal(fileId){
+        const modal = await this.modalController.create({
+            component: PdfViewerComponent,
+            componentProps: {fileId:fileId},
+            backdropDismiss: false,
+            cssClass: 'modalCss',
+        });
+
+        return await modal.present();
+    }
+
+    private updateEmpolyee() {
         this.httpService.post('/api/employee/save', this.currentEmployee)
             .subscribe(results => {
-                console.log(results);
             });
     }
 
-    private uploadAvatar(e) {
+    private uploadImage(e) {
         this.currentEmployee = e;
-        document.getElementById('selectedFile').click();
+        document.getElementById('imageFile').click();
     }
 
 
@@ -72,8 +97,9 @@ export class Hiring {
         });
     }
 
-    private dismiss() {
-        this.modalCtl.dismiss();
+    private uploadPDF(e) {
+        this.currentEmployee = e;
+        document.getElementById('PDFFile').click();
     }
 
     private initialization(root, params) {
@@ -130,23 +156,23 @@ export class Hiring {
             period: this.task_info.period,
             offer: offeredEmployees
         }).subscribe(resp => {
-            console.log(resp);
             this.dismiss();
         });
 
     }
 
-    private openPdf(fileInfo) {
-        // this.modalCtl.create(PdfViewerComponent, fileInfo).present();
+    private dismiss() {
+        this.modalController.dismiss();
+    }
+
+    private openPdf(fileId) {
+        console.log(fileId)
+        this.presentModal(fileId);
     }
 
 
     private clickFileInput() {
         document.getElementById('selectedFile').click();
-    }
-
-    private fileChange(event) {
-        // console.log(this.uploader);
     }
 
 }

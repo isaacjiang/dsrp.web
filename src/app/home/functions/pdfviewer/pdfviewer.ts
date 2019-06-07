@@ -5,11 +5,8 @@ import {Component} from '@angular/core';
 
 import 'rxjs';
 import {NavParams} from '@ionic/angular';
-import {DocumentViewer} from '@ionic-native/document-viewer/ngx';
+// import {DocumentViewer} from '@ionic-native/document-viewer/ngx';
 import {DocumentViewerOptions} from '@ionic-native/document-viewer';
-
-
-
 
 @Component({
     selector: 'edp-pdfviewer',
@@ -17,41 +14,36 @@ import {DocumentViewerOptions} from '@ionic-native/document-viewer';
 })
 export class PdfViewerComponent {
     private title: string;
-    private file_info: any;
+    private fileId: any;
     private pdfSrc: any;
+    private zoom = 1;
 
-    constructor(
-                private document: DocumentViewer,
-                public navParam: NavParams) {
-        this.file_info = navParam.data;
+    constructor(public navParam: NavParams) {
+        this.fileId = navParam['data']['fileId'];
+        console.log(navParam);
         this.initialiazation();
     }
 
     initialiazation() {
-        this.title = this.file_info['filename'];
+        this.title = 'test';
         const options: DocumentViewerOptions = {
-            title: this.file_info['filename']
+            title: 'test'
         };
-        this.document.viewDocument('assets/myFile.pdf', 'application/pdf', options);
-        // $scope.pdfName = ' Introduction';
-        this.pdfSrc = '/api/files/download?filename=' + this.file_info['filename'] +
-            '&id=' + this.file_info['objectID'] + '&ctype=' + this.file_info['content_type'];
-        // //'static/pdf/oea-big-data-guide-1522052.pdf';
-        //
-        // $scope.scroll = 100;
-        // $scope.loading = '';
-        //
-        // $scope.getNavStyle = function (scroll) {
-        //   if (scroll > 100) return 'pdf-controls fixed';
-        //   else return 'pdf-controls';
-        // }
+        // this.document.viewDocument('assets/myFile.pdf', 'application/pdf', options);
+        this.pdfSrc = 'http://0.0.0.0/api/files/download/' + this.fileId;
+    }
+
+    onZoom(value) {
+        if(value==1){
+            this.zoom=value;
+        }else{
+            this.zoom += value;
+        }
     }
 
     private dismiss() {
         // this.viewCtl.dismiss();
     }
-
-
 
 
 }

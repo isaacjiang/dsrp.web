@@ -29,7 +29,7 @@ import {FileUploadModule} from 'ng2-file-upload';
             }
         ])
     ],
-    entryComponents: [Forecasting, Hiring],
+    entryComponents: [Forecasting, Hiring, PdfViewerComponent],
     declarations: [HomePage, HeaderComponent, FooterComponent, MenuActionComponent, MenuBudgetComponent, HelpMenuComponent,
         PdfViewerComponent, Forecasting, Hiring]
 })
