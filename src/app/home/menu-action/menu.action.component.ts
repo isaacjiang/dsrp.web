@@ -23,11 +23,10 @@ export class MenuActionComponent {
                 public modalController: ModalController, public shareService: ShareService) {
     }
 
-
     public initialization() {
         const root = this;
-         // console.log(root.shareService.current_user);
-        const url = '/api/task/'  + this.shareService.current_user.companyId;
+        // console.log(root.shareService.current_user);
+        const url = '/api/task/' + this.shareService.current_user.companyId;
         this.httpService.get(url).subscribe((resp) => {
             // console.log(resp);
             root.workflow = resp;
@@ -37,20 +36,20 @@ export class MenuActionComponent {
     public menuClick(params) {
         // this.events.publish('menu-click-item',funcName)
         //  console.log(params);
-         // param['username'] = this.shareService.current_user.username;
-         // param['companyId'] = this.shareService.current_user.companyId;
-         // param['groupId'] = this.shareService.current_user.groupId;
-         // param['period'] = this.shareService.current_user.groupId;
-         switch (params.type) {
-             case 'Forecasting':
-                 this._showForecasting(params);
-                 break;
-             case 'Recruit':
-                 this._showHiring(params);
-                 break;
-         }
-         this.menuController.close('action');
-     }
+        // param['username'] = this.shareService.current_user.username;
+        // param['companyId'] = this.shareService.current_user.companyId;
+        // param['groupId'] = this.shareService.current_user.groupId;
+        // param['period'] = this.shareService.current_user.groupId;
+        switch (params.type) {
+            case 'Forecasting':
+                this._showForecasting(params);
+                break;
+            case 'Recruit':
+                this._showHiring(params);
+                break;
+        }
+        this.menuController.close('action');
+    }
 
     private async _showForecasting(params) {
         const modal = await this.modalController.create({
@@ -76,9 +75,7 @@ export class MenuActionComponent {
                     backdropDismiss: false,
                     cssClass: 'modalCss',
                 });
-
                 return await modal.present();
             });
     }
-
 }

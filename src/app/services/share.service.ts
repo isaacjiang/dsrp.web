@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {HttpService} from './http.service';
 import {HttpHeaders} from '@angular/common/http';
+import {ModalController} from '@ionic/angular';
 
 /**
  * Most apps have the concept of a User. This is a simple provider
@@ -26,7 +27,8 @@ import {HttpHeaders} from '@angular/common/http';
 export class ShareService {
     public current_user: any = {username: 'jakechen0816', anonymous: false}; // {username: 'Anonymous', anonymous: true};
 
-    constructor(public httpService: HttpService) {
+    constructor(public httpService: HttpService,
+                private modalController:ModalController) {
 
     }
 
@@ -37,6 +39,7 @@ export class ShareService {
     status(username: any) {
         return this.httpService.get('/api/user/status/' + username);
     }
+
     getGroupAll() {
         return this.httpService.get('/api/group/all');
     }
@@ -81,6 +84,4 @@ export class ShareService {
             return p < 0 || i < p ? ($0 + ',') : $0;
         });
     }
-
-
 }

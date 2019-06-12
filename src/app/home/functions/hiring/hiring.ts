@@ -1,4 +1,4 @@
-import {Component, EventEmitter} from '@angular/core';
+import {Component} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
 import {Events, ModalController, NavParams} from '@ionic/angular';
 import {ShareService} from '../../../services/share.service';
@@ -68,12 +68,12 @@ export class Hiring {
         };
     }
 
-    async presentModal(fileId){
+    async presentModal(fileId) {
         const modal = await this.modalController.create({
             component: PdfViewerComponent,
-            componentProps: {fileId:fileId},
+            componentProps: {fileId: fileId},
             backdropDismiss: false,
-            cssClass: 'modalCss',
+            cssClass: 'modalCss-pdf',
         });
 
         return await modal.present();
@@ -166,7 +166,6 @@ export class Hiring {
     }
 
     private openPdf(fileId) {
-        console.log(fileId)
         this.presentModal(fileId);
     }
 

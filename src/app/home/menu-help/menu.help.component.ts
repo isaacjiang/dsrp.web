@@ -17,9 +17,11 @@ export class HelpMenuComponent {
     public title: any;
 
     constructor(public httpService: HttpService) {
-
     }
 
+    menuClick(funcName) {
+        // this.events.publish('menu-click-item', funcName);
+    }
 
     private initialiazation(current_user, menuId) {
         this.title = menuId.toUpperCase();
@@ -29,10 +31,4 @@ export class HelpMenuComponent {
             root.workflow = resp;
         });
     }
-
-    menuClick(funcName) {
-        // this.events.publish('menu-click-item', funcName);
-    }
-
-
 }

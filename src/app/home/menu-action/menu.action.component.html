@@ -1,13 +1,12 @@
-
-  <ion-toolbar color ='secondary'>
+<ion-toolbar color='secondary'>
     <ion-title style="padding-left: 10px">{{ title }}</ion-title>
-  </ion-toolbar>
-  <ion-list >
-    <ion-item *ngFor="let menuItem of workflow" (click)="menuClick(menuItem)">
-      <ion-radio slot="start" [checked]="menuItem.status=='Completed'"></ion-radio>
-      <ion-label>{{ menuItem.name }}</ion-label>
+</ion-toolbar>
+<ion-list>
+    <ion-item (click)="menuClick(menuItem)" *ngFor="let menuItem of workflow">
+        <ion-radio [checked]="menuItem.status=='Completed'" slot="start"></ion-radio>
+        <ion-label>{{ menuItem.name }}</ion-label>
     </ion-item>
-  </ion-list>
+</ion-list>
 
 
 

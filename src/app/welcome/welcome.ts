@@ -25,10 +25,8 @@ export class Welcome {
 
     }
 
-
     async login() {
         // this.modalCtl.create(Login,null,{enableBackdropDismiss:false}).present();
-
 
         const prompt = await this.alertCtrl.create({
             header: 'Login',
@@ -56,7 +54,7 @@ export class Welcome {
                     handler: data => {
                         // console.log('Saved clicked',data);
                         if (data.username !== '' && data.password !== '') {
-                           // this.events.publish('login-do-login', data);
+                            // this.events.publish('login-do-login', data);
                             this._doLogin(data);
                         }
 
@@ -65,7 +63,6 @@ export class Welcome {
             ]
         });
         await prompt.present();
-
     }
 
     async signUp() {
@@ -130,13 +127,10 @@ export class Welcome {
                     } else {
 // todo send message
                     }
-
                 }
             });
             console.log('++++', prompt.buttons);
         }
-
-
         await prompt.present();
     }
 
@@ -152,9 +146,7 @@ export class Welcome {
                 console.log('Authenticate Failure. ');
             }
         });
-
     }
-
 
     private _doSignup(account) {
         this.shareService.signup(account).subscribe((resp) => {
@@ -167,6 +159,5 @@ export class Welcome {
             //     console.log(resp["message"])
             // }
         });
-
     }
 }

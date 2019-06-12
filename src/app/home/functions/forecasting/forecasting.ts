@@ -1,7 +1,4 @@
 import {Component} from '@angular/core';
-
-
-import {PdfViewerComponent} from '../pdfviewer/pdfviewer';
 import {Events, ModalController, NavParams} from '@ionic/angular';
 import {HttpService} from '../../../services/http.service';
 import {ShareService} from '../../../services/share.service';
@@ -13,8 +10,6 @@ import {ShareService} from '../../../services/share.service';
     styleUrls: ['forecasting.scss'],
 })
 export class Forecasting {
-
-
     private task_info: any;
     private tabs: any;
     private parameters: any = {tabs_value: ['projected_sale'], tabs_disp: ['Projected Sale'], labels: ['B2B', 'B2C', 'New Offering']};
@@ -41,7 +36,6 @@ export class Forecasting {
             this.parameters.labels = ['Niche #1', 'Niche #3', 'Niche #3', 'Total'];
         }
 
-
         this.httpService.get('/api/forecasting/' + this.shareService.current_user.companyId)
             .subscribe((forecast) => {
                     if (Object.keys(forecast).length > 0) {
@@ -66,9 +60,7 @@ export class Forecasting {
 
     }
 
-    private openPdf(fileInfo) {
+    private openPdf() {
         // this.modalCtl.create(PdfViewerComponent, fileInfo).present();
     }
-
-
 }

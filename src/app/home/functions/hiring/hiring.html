@@ -1,13 +1,10 @@
 <ion-header>
-    <input #fileUploadImage [uploader]="uploaderImage" accept="image/*" id="imageFile" ng2FileSelect
+    <input [uploader]="uploaderImage" accept="image/*" id="imageFile" ng2FileSelect
            style="display: none;" type="file">
-    <input #fileUploadPDF [uploader]="uploaderPDF" accept=".pdf" id="PDFFile" ng2FileSelect
+    <input [uploader]="uploaderPDF" accept=".pdf" id="PDFFile" ng2FileSelect
            style="display: none;" type="file">
-
     <ion-toolbar color="tertiary">
-
         <ion-title>Forecast</ion-title>
-
         <ion-buttons slot="end">
             <ion-button (click)="openPdf(1)">
                 <ion-icon name="document"></ion-icon>
@@ -18,7 +15,6 @@
                 <ion-icon name="information-circle"></ion-icon>
             </ion-button>
         </ion-buttons>
-
         <ion-buttons slot="end">
             <ion-button (click)="dismiss()">
                 <ion-icon name="close"></ion-icon>
@@ -39,7 +35,6 @@
     <div>
         <ion-grid>
             <ion-row *ngFor="let employee of employees" style="border-bottom-width: 1px">
-
                 <ion-col size="1"></ion-col>
                 <ion-col size="3">
                     <ion-item lines="none">
@@ -82,18 +77,13 @@
                                style="padding-top:20px">
                         <ion-icon name="remove" range-left small></ion-icon>
                         <ion-icon name="add" range-right></ion-icon>
-
                     </ion-range>
                 </ion-col>
             </ion-row>
-
-
         </ion-grid>
-
     </div>
-
-
 </ion-content>
+
 <ion-footer>
     <ion-toolbar>
         <ion-buttons slot="end">

@@ -11,9 +11,9 @@ import {HttpService} from '../../services/http.service';
     providers: [HttpService]
 })
 export class MenuBudgetComponent {
+    public title: any;
     private current_budget: any = [];
     private current_index = 0;
-    public title: any;
 
     constructor(public httpService: HttpService) {
 
@@ -42,6 +42,4 @@ export class MenuBudgetComponent {
     private budget_input(index, budget) {
         this.current_index = index;
     }
-
-
 }

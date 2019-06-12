@@ -9,7 +9,6 @@ export class HttpService {
     url = '';
 
     constructor(public http: HttpClient) {
-
     }
 
     get(endpoint: string, params?: any, reqOpts?: any) {
@@ -18,7 +17,6 @@ export class HttpService {
                 params: new HttpParams()
             };
         }
-
         // Support easy query params for GET requests
         if (params) {
             reqOpts.params = new HttpParams();

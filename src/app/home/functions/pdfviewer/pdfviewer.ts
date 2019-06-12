@@ -17,6 +17,9 @@ export class PdfViewerComponent {
     private fileId: any;
     private pdfSrc: any;
     private zoom = 1;
+    private currentPage = 1;
+    private rotate = 0;
+    private pageCount = 0;
 
     constructor(public navParam: NavParams) {
         this.fileId = navParam['data']['fileId'];
@@ -34,16 +37,40 @@ export class PdfViewerComponent {
     }
 
     onZoom(value) {
-        if(value==1){
-            this.zoom=value;
-        }else{
+        if (value == 1) {
+            this.zoom = value;
+        } else {
             this.zoom += value;
         }
+    }
+
+    onPage(value) {
+        switch (value) {
+            case 0:
+                this.currentPage = 1;
+                break;
+            case 9:
+                this.currentPage = this.pageCount;
+                break;
+            default:
+                this.currentPage += value;
+        }
+
+    }
+
+    onRotate(value) {
+        if(value==0){
+            this.rotate=value;
+        }else{
+            this.rotate += value;
+        }
+    }
+
+    afterLoadComplete(event) {
+        this.pageCount = event.numPages;
     }
 
     private dismiss() {
         // this.viewCtl.dismiss();
     }
-
-
 }

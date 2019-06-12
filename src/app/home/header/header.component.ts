@@ -7,15 +7,11 @@ import {ShareService} from '../../services/share.service';
 import {Router} from '@angular/router';
 import {HttpService} from '../../services/http.service';
 
-
-
-
 @Component({
     selector: 'edp-header',
     templateUrl: 'header.component.html',
     styleUrls: ['header.component.scss']
 })
-
 
 export class HeaderComponent {
     public viewCtl = {showJoinTeam: true, showSignup: true, showLogOut: true};
@@ -24,7 +20,6 @@ export class HeaderComponent {
                 public menuController: MenuController, private events: Events,
                 public shareService: ShareService, public httpService: HttpService) {
     }
-
 
     loadPage(pageName) {
         // this.events.publish('header-load-page',pageName)
@@ -44,7 +39,6 @@ export class HeaderComponent {
         this.events.publish('send-message', 'toggle menu');
     }
 
-
     joinTeam() {
         const inputs = [];
         const buttons = [];
@@ -60,20 +54,22 @@ export class HeaderComponent {
                     groupId: data
                 })
                     .subscribe(resp => {
-                    // console.log(resp);
-                    root.shareService.setCurrentUser(resp);
-                    root.events.publish('refresh-footer', {});
+                        // console.log(resp);
+                        root.shareService.setCurrentUser(resp);
+                        root.events.publish('refresh-footer', {});
 
-                });
+                    });
             }
         };
         this.shareService.getGroupAll().toPromise().then((group) => {
-            const groupArray =  JSON.parse(JSON.stringify(group));
+            const groupArray = JSON.parse(JSON.stringify(group));
             groupArray.forEach(group1 => {
                 // console.log('Group', group1);
-                inputs.push({type: 'radio',
+                inputs.push({
+                    type: 'radio',
                     label: group1['groupName'],
-                    value: group1['id']});
+                    value: group1['id']
+                });
             });
             this.shareService.getCompanyBase().toPromise().then((company) => {
                 const companyArray = JSON.parse(JSON.stringify(company));
@@ -89,6 +85,7 @@ export class HeaderComponent {
             });
         });
     }
+
     async joinTeamAlert(inputs, buttons) {
         // const inputs = [];
         const alert = await this.alertController.create({
@@ -107,7 +104,6 @@ export class HeaderComponent {
     async signUp() {
         const prompt = await this.alertController.create({
             header: 'SignUp',
-
             // message: 'Enter a name for this new album you're so keen on adding',
             inputs: [
                 {
@@ -156,13 +152,13 @@ export class HeaderComponent {
 
         if (this.shareService.current_user.permission === '0') {
             console.log('++++', prompt.buttons);
-          await prompt.buttons.push({
+            await prompt.buttons.push({
                 text: 'Admin',
                 handler: data => {
                     console.log('Saved clicked', data);
                     data.permission = '0';
                     if (data.username !== '' && data.password !== '' && data.username.length >= 6 && data.password === data.password2) {
-                      //  this.events.publish('signup-do-signup', data);
+                        //  this.events.publish('signup-do-signup', data);
                     } else {
 // todo send message
                     }
@@ -171,13 +167,10 @@ export class HeaderComponent {
             });
             console.log('++++', prompt.buttons);
         }
-
-
         await prompt.present();
     }
 
     public authentication() {
-
         this.shareService.status(this.shareService.current_user.username).subscribe((resp) => {
             this.shareService.setCurrentUser(resp);
         });
@@ -189,10 +182,8 @@ export class HeaderComponent {
     }
 
 
-
     private _doSignup(account) {
         // console.log(account);
-
         this.shareService.signup(account).subscribe((resp) => {
             // console.log(1, resp);
 
@@ -205,7 +196,6 @@ export class HeaderComponent {
             //     console.log(resp["message"])
             // }
         });
-
     }
 
     private _doLogout() {
@@ -219,6 +209,4 @@ export class HeaderComponent {
             // }
         });
     }
-
-
 }
