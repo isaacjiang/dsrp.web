@@ -15,6 +15,8 @@ import {Forecasting} from './functions/forecasting/forecasting';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {FooterComponent} from './footer/footer.component';
 import {Hiring} from './functions/hiring/hiring';
+import {ContentDirective} from './directives/content.directive';
+import {AccountView} from './view-account/account.view';
 
 
 @NgModule({
@@ -29,8 +31,10 @@ import {Hiring} from './functions/hiring/hiring';
       }
     ])
   ],
-  entryComponents: [Forecasting, Hiring],
+  entryComponents: [Forecasting, Hiring, AccountView],
   declarations: [HomePage, HeaderComponent, FooterComponent, MenuActionComponent, MenuBudgetComponent, HelpMenuComponent,
+      ContentDirective,
+    AccountView,
     PdfViewerComponent, Forecasting, Hiring]
 })
 export class HomePageModule {}

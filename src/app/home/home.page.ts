@@ -1,15 +1,16 @@
 import {Component, ComponentFactoryResolver, ViewChild} from '@angular/core';
 
-import {BudgetMenuDirective} from '../directives/budget.menu.directive';
-import {FixedMenuDirective} from '../directives/fixed.menu.directive';
-import {ContentDirective} from '../directives/content.directive';
-import {StatusDirective} from '../directives/status.directive';
+import {BudgetMenuDirective} from './directives/budget.menu.directive';
+import {FixedMenuDirective} from './directives/fixed.menu.directive';
+import {ContentDirective} from './directives/content.directive';
+import {StatusDirective} from './directives/status.directive';
 import {AlertController, Events, LoadingController, MenuController, ModalController, NavController, ToastController} from '@ionic/angular';
 import {MenuActionComponent} from './menu-action/menu.action.component';
 import {HeaderComponent} from './header/header.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ShareService} from '../services/share.service';
 import {FooterComponent} from './footer/footer.component';
+import {AccountView} from './view-account/account.view';
 
 
 @Component({
@@ -59,10 +60,16 @@ export class HomePage {
   eventsOn() {
     const root = this;
     this.events.unsubscribe('load-action-menu');
+    this.events.unsubscribe('home-load-view');
     this.events.unsubscribe('refresh-footer');
     this.events.unsubscribe('send-message');
     this.events.subscribe('load-action-menu', () => {
       root.menuActionComponent.initialization();
+    });
+    this.events.subscribe('home-load-view', (viewName) => {
+      console.log(viewName);
+      const ref = this._loadComponent(this.contentHost.viewContainerRef, AccountView);
+      ref.instance.initialiazation(viewName);
     });
     this.events.subscribe('refresh-footer', () => {
       root.footerComponent.refresh();
@@ -82,5 +89,10 @@ export class HomePage {
     return await loading.present();
   }
 
+  private _loadComponent(viewContainerRef, component) {
+    viewContainerRef.clear();
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    return viewContainerRef.createComponent(componentFactory);
+  }
 
 }

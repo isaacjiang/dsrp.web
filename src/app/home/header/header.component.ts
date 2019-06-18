@@ -27,11 +27,11 @@ export class HeaderComponent {
 
 
     loadPage(pageName) {
-        // this.events.publish('header-load-page',pageName)
+        this.events.publish('home-load-view', pageName);
     }
 
     toggleMenu(menuId) {
-        console.log(menuId);
+        // console.log(menuId);
         this.menuController.enable(true, menuId);
         this.menuController.open(menuId);
         switch (menuId) {

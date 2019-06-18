@@ -26,7 +26,7 @@ import {HttpHeaders} from '@angular/common/http';
 export class ShareService {
     public current_user: any = {username: 'isaacjiang', anonymous: false}; // {username: 'Anonymous', anonymous: true};
 
-    constructor(public httpService: HttpService) {
+    constructor(private httpService: HttpService) {
 
     }
 
