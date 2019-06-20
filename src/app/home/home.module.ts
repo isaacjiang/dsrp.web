@@ -17,6 +17,7 @@ import {FooterComponent} from './footer/footer.component';
 import {Hiring} from './functions/hiring/hiring';
 import {ContentDirective} from './directives/content.directive';
 import {AccountView} from './view-account/account.view';
+import {AccountSelectPopover} from './view-account/account.select.popover';
 
 
 @NgModule({
@@ -31,10 +32,10 @@ import {AccountView} from './view-account/account.view';
       }
     ])
   ],
-  entryComponents: [Forecasting, Hiring, AccountView],
+  entryComponents: [Forecasting, Hiring, AccountView, AccountSelectPopover],
   declarations: [HomePage, HeaderComponent, FooterComponent, MenuActionComponent, MenuBudgetComponent, HelpMenuComponent,
       ContentDirective,
-    AccountView,
+    AccountView, AccountSelectPopover,
     PdfViewerComponent, Forecasting, Hiring]
 })
 export class HomePageModule {}

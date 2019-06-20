@@ -66,10 +66,10 @@ export class HomePage {
     this.events.subscribe('load-action-menu', () => {
       root.menuActionComponent.initialization();
     });
-    this.events.subscribe('home-load-view', (viewName) => {
-      console.log(viewName);
+    this.events.subscribe('home-load-view', (viewName, type) => {
+      console.log(viewName, type);
       const ref = this._loadComponent(this.contentHost.viewContainerRef, AccountView);
-      ref.instance.initialiazation(viewName);
+      ref.instance.initialiazation(type);
     });
     this.events.subscribe('refresh-footer', () => {
       root.footerComponent.refresh();

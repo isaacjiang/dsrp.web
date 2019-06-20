@@ -1,19 +1,19 @@
 <ion-grid class="account-grid">
   <!--<ion-row style="height: 100%;">-->
     <!--<ion-col>-->
-      <ion-card>
-
+      <ion-card >
+<ion-card-header>
           <ion-row class="trow"  nowrap >
-            <ion-col class="tcol" text-start>
+            <ion-col class="tcol" size="1" text-start>
               <span>ID</span>
             </ion-col>
-            <ion-col col-4 class="tcol" text-start >
+            <ion-col size="3" class="tcol" text-start >
               <span>Description</span>
             </ion-col>
-            <ion-col class="tcol" text-center >
+            <ion-col  class="tcol" text-center >
               <span>PeriodPre2</span>
             </ion-col>
-            <ion-col class="tcol" text-center >
+            <ion-col  class="tcol" text-center >
               <span>PeriodPre1</span>
             </ion-col>
             <ion-col class="tcol" text-center>
@@ -39,47 +39,50 @@
             </ion-col>
 
           </ion-row>
+        </ion-card-header>
+        <ion-card-content >
+
 
 <!--        <ion-scroll scrollY style="height:100%;">-->
 <!--<ion-card-content>-->
 
   <ion-row class="trow"  nowrap *ngFor="let line of formData;let indexRow = index" (mousemove)="selectLine($event)">
-  <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-  <span>{{ line["Desc ID"]  }}</span>
+  <ion-col class="tcol" size="1" text-start (click)="selectLine(indexRow)">
+  <span>{{ line["accTitleId"]  }}</span>
   </ion-col>
-    <ion-col col-4 class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-      <span>{{ line["Account Description"]  }}</span>
+    <ion-col size="3"  class="tcol" text-start (click)="selectLine(indexRow)">
+      <span>{{ line["accTitle"]  }}</span>
     </ion-col>
-    <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-      <span>{{ line["PeriodPre2"]  }}</span>
+    <ion-col class="tcol" text-start (click)="selectLine(indexRow)">
+      <span>{{ line["P-2"]  }}</span>
     </ion-col>
-    <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-      <span>{{ line["PeriodPre1"]  }}</span>
+    <ion-col class="tcol" text-start (click)="selectLine(indexRow)">
+      <span>{{ line["P-1"]  }}</span>
     </ion-col>
-    <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-      <span>{{ line["Period1"]  }}</span>
+    <ion-col class="tcol" text-start (click)="selectLine(indexRow)">
+      <span>{{ line["P1"]  }}</span>
     </ion-col>
-    <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-      <span>{{ line["Period2"]  }}</span>
+    <ion-col class="tcol" text-start (click)="selectLine(indexRow)">
+      <span>{{ line["P2"]  }}</span>
     </ion-col>
-    <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-    <span>{{ line["Period3"]  }}</span>
+    <ion-col class="tcol" text-start (click)="selectLine(indexRow)">
+    <span>{{ line["P3"]  }}</span>
   </ion-col>
-    <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-      <span>{{ line["Period4"]  }}</span>
+    <ion-col class="tcol" text-start (click)="selectLine(indexRow)">
+      <span>{{ line["P4"]  }}</span>
     </ion-col>
-    <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-      <span>{{ line["Period5"]  }}</span>
+    <ion-col class="tcol" text-start (click)="selectLine(indexRow)">
+      <span>{{ line["P5"]  }}</span>
     </ion-col>
-    <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-      <span>{{ line["Period6"]  }}</span>
+    <ion-col class="tcol" text-start (click)="selectLine(indexRow)">
+      <span>{{ line["P6"]  }}</span>
     </ion-col>
-    <ion-col class="tcol" text-start (click)="selectCell(indexRow,indexCol)">
-      <span>{{ line["Period7"]  }}</span>
+    <ion-col class="tcol" text-start (click)="selectLine(indexRow)">
+      <span>{{ line["P7"]  }}</span>
     </ion-col>
 
   </ion-row>
-
+        </ion-card-content>
 <!--</ion-card-content>-->
 <!--        </ion-scroll>-->
 

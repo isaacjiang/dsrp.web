@@ -16,10 +16,11 @@
             <ion-icon slot='icon-only' name="ios-stats"></ion-icon>
             Stat
           </ion-button>
-          <ion-button shape="round" (click)="loadPage('account')" >
+          <ion-button shape="round" (click)="presentPopover($event)" >
             <ion-icon slot='icon-only' name="ios-filing"></ion-icon>
             Account
           </ion-button>
+
           <ion-button shape="round" (click)="loadPage('settings')" >
             <ion-icon slot='icon-only' name="ios-switch"></ion-icon>
             Settings

@@ -2,10 +2,11 @@
  * Created by isaacjiang on 2017-09-01.
  */
 import {Component} from '@angular/core';
-import {AlertController, Events, MenuController} from '@ionic/angular';
+import {AlertController, Events, MenuController, PopoverController} from '@ionic/angular';
 import {ShareService} from '../../services/share.service';
 import {Router} from '@angular/router';
 import {HttpService} from '../../services/http.service';
+import {AccountSelectPopover} from '../view-account/account.select.popover';
 
 
 
@@ -22,9 +23,20 @@ export class HeaderComponent {
 
     constructor(public alertController: AlertController, private router: Router,
                 public menuController: MenuController, private events: Events,
+                private popoverController: PopoverController,
                 public shareService: ShareService, public httpService: HttpService) {
     }
 
+
+
+     async presentPopover(ev: any) {
+        const popover = await this.popoverController.create({
+            component: AccountSelectPopover,
+            event: ev,
+            translucent: true
+        });
+        return await popover.present();
+    }
 
     loadPage(pageName) {
         this.events.publish('home-load-view', pageName);

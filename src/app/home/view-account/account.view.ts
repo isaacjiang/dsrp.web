@@ -12,8 +12,8 @@ import {HttpService} from '../../services/http.service';
 
 @Component({
     selector: 'dsrp-account',
-    templateUrl: 'account.view.html'
-
+    templateUrl: 'account.view.html',
+    styleUrls: ['account.view.scss'],
 })
 export class AccountView {
 
@@ -24,72 +24,14 @@ export class AccountView {
     constructor(public shareService: ShareService,
                 public httpService: HttpService,
                 public events: Events) {
-       this.eventsHandles(this);
     }
-
-    eventsHandles(root) {
-        // root.events.unsubscribe('policyList')
-        // root.events.subscribe('policyList', (originalData) => {
-        //     console.log(originalData)
-        //    root.fillingData(originalData)
-        //
-        // })
-    }
-
-    initialiazation( menuID) {
-      const root = this;
-      const url = '/api/accountbook/' + this.shareService.current_user.companyId;
+    initialiazation( type) {
+      const url = '/api/accountbook/' + type + '/' + this.shareService.current_user.companyId;
       console.log(url);
       this.httpService.get(url).subscribe((res) => {
-        const resp = JSON.parse(JSON.stringify(res));
-        // switch (menuID){
-        //   case "account2":{
-        //     root.formData = resp.filter(function (d) {
-        //       return d.accountDescType == "PL"
-        //     })
-        //     break;
-        //   }
-        //   case "account3":{
-        //     root.formData = resp.filter(function (d) {
-        //       return d.accountDescType == "BALANCE"
-        //     })
-        //     break;
-        //   }
-        //   case "account4":{
-        //     root.formData = resp.filter(function (d) {
-        //       return d.accountDescType == "CF"
-        //     })
-        //     break;
-        //   }
-        //   default:{
-        //     root.formData = resp.filter(function (d) {
-        //       return d.summaryFLag == true
-        //     })
-        //     break;
-        //   }
-        // }
-
-
+        this.formData = JSON.parse(JSON.stringify(res)).data;
         console.log(res);
       });
     }
-
-    fillingData(originalData) {
-
-        // let titleList = [];
-
-    }
-    selectLine(event){
-
-    }
-
-    selectCell(row, col){
-
-    }
-
-
-
-
-
-
+    selectLine(row) {}
 }
