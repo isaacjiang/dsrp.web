@@ -22,7 +22,7 @@
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-segment [(ngModel)]="tabs" item-start>
+        <ion-segment [(ngModel)]="tabs" slot="start">
             <ion-segment-button [value]="parameters.tabs_value[0]">
                 {{parameters.tabs_disp[0]}}
             </ion-segment-button>
@@ -31,57 +31,45 @@
 </ion-header>
 
 <ion-content>
-    <!--    <input (uploadOutput)="onUploadOutput($event)" [options]="options" [uploadInput]="uploadInput" id="selectedFile" multiple ngFileSelect onclick="this.value = null" style="display: none;"  type="file">-->
-    <div>
-        <ion-grid>
-            <ion-row *ngFor="let employee of employees" style="border-bottom-width: 1px">
-                <ion-col size="1"></ion-col>
-                <ion-col size="3">
-                    <ion-item lines="none">
-                        <ion-avatar (click)="uploadImage(employee)" slot="start">
-                            <img [src]="(employee['avatarId']!=null&&employee['avatarId']!=''&&employee['avatarId']!=undefined)?'http://0.0.0.0/api/files/download/'+employee['avatarId']:'assets/img/Businessman.png'">
-                        </ion-avatar>
-                        <ion-label>
-                            <h2>{{employee.name}} </h2>
-                            <h3>{{employee.title}} </h3>
-                            <p>Minimum Salary :{{employee.minimumSalary}} </p>
-                        </ion-label>
-                        <ion-buttons>
-                            <ion-button (click)="uploadPDF(employee)">
-                                <ion-icon name="add"></ion-icon>
-                            </ion-button>
-                            <ion-button
-                                    (click)="openPdf(employee.resumeId)"
-                                    *ngIf="employee['resumeId']!=null&&employee['resumeId']!=''&&employee['resumeId']!=undefined">
-                                <ion-icon name="paper"></ion-icon>
-                            </ion-button>
-                        </ion-buttons>
-                    </ion-item>
-                </ion-col>
-                <!--                <ion-col col-1>-->
-                <!--                    <ion-buttons end>-->
-                <!--                        <button ion-button clear icon-only (click)="openPdf(employee.resume)" style="padding-top:20px">-->
-                <!--                            <ion-icon name="information-circle"></ion-icon>-->
-                <!--                        </button>-->
-                <!--                    </ion-buttons>-->
-                <!--                </ion-col>-->
-                <ion-col align-self-center size="2" text-center>
-                    <ion-input [(ngModel)]="employee.salaryOffer_t" [placeholder]="employee.salaryOffer_t" disabled
-                               type="text">
-                    </ion-input>
-                </ion-col>
-                <ion-col size="4">
-                    <ion-range (ionChange)="onChange(employee)" [(ngModel)]="employee.salaryOffer"
-                               [max]="employee.minimumSalary*2" [min]="employee.minimumSalary"
-                               pin="true" snaps="true" step="10000"
-                               style="padding-top:20px">
-                        <ion-icon name="remove" range-left small></ion-icon>
-                        <ion-icon name="add" range-right></ion-icon>
-                    </ion-range>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </div>
+    <ion-grid>
+        <ion-row *ngFor="let employee of employees" style="border-bottom-width: 1px">
+            <ion-col size="1"></ion-col>
+            <ion-col size="3">
+                <ion-item lines="none">
+                    <ion-avatar (click)="uploadImage(employee)" slot="start" tappable>
+                        <img [src]="(employee['avatarId']!=null&&employee['avatarId']!=''&&employee['avatarId']!=undefined)?'http://0.0.0.0/api/files/download/'+employee['avatarId']:'assets/img/Businessman.png'">
+                    </ion-avatar>
+                    <ion-label>
+                        <h2>{{employee.name}} </h2>
+                        <h3>{{employee.title}} </h3>
+                        <p>Minimum Salary :{{employee.minimumSalary}} </p>
+                    </ion-label>
+                    <ion-buttons>
+                        <ion-button (click)="uploadPDF(employee)">
+                            <ion-icon name="add"></ion-icon>
+                        </ion-button>
+                        <ion-button
+                                (click)="openPdf(employee.resumeId)"
+                                *ngIf="employee['resumeId']!=null&&employee['resumeId']!=''&&employee['resumeId']!=undefined">
+                            <ion-icon name="paper"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-item>
+            </ion-col>
+            <ion-col align-self-center size="2" text-center>
+                <ion-input [(ngModel)]="employee.salaryOffer_t" [placeholder]="employee.salaryOffer_t" disabled
+                           type="text">
+                </ion-input>
+            </ion-col>
+            <ion-col size="4">
+                <ion-range (ionChange)="onChange(employee)" [(ngModel)]="employee.salaryOffer"
+                           [max]="employee.minimumSalary*2" [min]="employee.minimumSalary"
+                           pin="true" snaps="true" step="10000"
+                           style="padding-top:20px">
+                </ion-range>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
 
 <ion-footer>

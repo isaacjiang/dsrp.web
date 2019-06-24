@@ -1,0 +1,142 @@
+<ion-header>
+    <!--  <input [uploader]="uploaderImage" accept="image/*" id="imageFile" ng2FileSelect-->
+    <!--         style="display: none;" type="file">-->
+    <!--  <input [uploader]="uploaderPDF" accept=".pdf" id="PDFFile" ng2FileSelect-->
+    <!--         style="display: none;" type="file">-->
+    <ion-toolbar color="tertiary">
+        <ion-title>Workforce</ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon name="document"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon name="information-circle"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="tabs" slot="start">
+            <ion-segment-button [value]="parameters.tabs_value[0]">
+                {{parameters.tabs_disp[0]}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-grid>
+        <ion-row text-center>
+            <ion-col></ion-col>
+            <ion-col>Core</ion-col>
+            <ion-col>Contingency</ion-col>
+            <ion-col>Total</ion-col>
+        </ion-row>
+        <ion-row align-items-center class="input-border">
+            <ion-col>Workforce at start of Period</ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row align-items-center class="input-border">
+            <ion-col>Size recommended by HR</ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row align-items-center class="input-border">
+            <ion-col>Adjustment to Workforce</ion-col>
+            <ion-col>
+                <ion-input [(ngModel)]="test1" inputmode="numeric" type="number"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input [(ngModel)]="test2" inputmode="numeric" type="number"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input inputmode="numeric"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row align-items-center>
+            <ion-col>Adjustment to Workforce</ion-col>
+            <ion-col>
+                <ion-range [(ngModel)]="test1" max="1000" min="-1000"></ion-range>
+            </ion-col>
+            <ion-col>
+                <ion-range [(ngModel)]="test2" max="1000" min="-1000"></ion-range>
+            </ion-col>
+            <ion-col></ion-col>
+        </ion-row>
+        <ion-row align-items-center class="divided-row-top-bottom">
+            <ion-col>Adjusted Workforce</ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row align-items-center>
+            <ion-col>Cost of Workforce Adjustment</ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row align-items-center>
+            <ion-col>Business Function Wages</ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row align-items-center>
+            <ion-col>Calculated Expenses</ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input readonly="true"></ion-input>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="submit()" color="primary" fill="outline">Submit</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

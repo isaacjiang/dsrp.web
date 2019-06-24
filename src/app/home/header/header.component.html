@@ -30,12 +30,12 @@
         </ion-button>
     </ion-buttons>
 
-    <ion-title tappable="">
+    <ion-title tappable>
         Leading in a World Of Disruption
     </ion-title>
 
     <ion-buttons slot="end">
-        <ion-button block clear>
+        <ion-button>
             {{ shareService.current_user == null ? "Anonymous" : shareService.current_user['username'] }}
         </ion-button>
         <ion-button (click)="joinTeam()" *ngIf="viewCtl.showJoinTeam" shape="round">

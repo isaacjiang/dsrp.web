@@ -40,6 +40,7 @@ export class Forecasting {
             .subscribe((forecast) => {
                     if (Object.keys(forecast).length > 0) {
                         this.forcast = forecast;
+                        this.forcast.total_disp = this.shareService.formatNum(this.forcast.total);
                     }
                 }
             );

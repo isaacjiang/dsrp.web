@@ -16,6 +16,7 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {FooterComponent} from './footer/footer.component';
 import {Hiring} from './functions/hiring/hiring';
 import {FileUploadModule} from 'ng2-file-upload';
+import {Workforce} from './functions/workforce/workforce.component';
 
 @NgModule({
     imports: [
@@ -29,9 +30,9 @@ import {FileUploadModule} from 'ng2-file-upload';
             }
         ])
     ],
-    entryComponents: [Forecasting, Hiring, PdfViewerComponent],
+    entryComponents: [Forecasting, Hiring, Workforce, PdfViewerComponent],
     declarations: [HomePage, HeaderComponent, FooterComponent, MenuActionComponent, MenuBudgetComponent, HelpMenuComponent,
-        PdfViewerComponent, Forecasting, Hiring]
+        PdfViewerComponent, Forecasting, Hiring, Workforce]
 })
 export class HomePageModule {
 }

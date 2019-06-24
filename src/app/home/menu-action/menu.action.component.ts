@@ -9,6 +9,7 @@ import {ShareService} from '../../services/share.service';
 import {MenuController, ModalController} from '@ionic/angular';
 import {Forecasting} from '../functions/forecasting/forecasting';
 import {Hiring} from '../functions/hiring/hiring';
+import {Workforce} from '../functions/workforce/workforce.component';
 
 @Component({
     selector: 'edp-main-menu',
@@ -28,7 +29,7 @@ export class MenuActionComponent {
         // console.log(root.shareService.current_user);
         const url = '/api/task/' + this.shareService.current_user.companyId;
         this.httpService.get(url).subscribe((resp) => {
-            // console.log(resp);
+            console.log(resp);
             root.workflow = resp;
         });
     }
@@ -47,6 +48,9 @@ export class MenuActionComponent {
             case 'Recruit':
                 this._showHiring(params);
                 break;
+            case 'Workforce':
+                this._showWorkforce(params);
+                break;
         }
         this.menuController.close('action');
     }
@@ -58,17 +62,12 @@ export class MenuActionComponent {
             backdropDismiss: false,
             cssClass: 'modalCss',
         });
-        // console.log(modal)
-        // modal.setAttribute('backdrop-dismiss', 'false');
-        // modal.setAttribute('css-class', 'modalcss');
         return await modal.present();
     }
 
     private async _showHiring(params) {
-
         this.httpService.get('/api/employee/' + this.shareService.current_user.companyId)
             .subscribe(async (employees) => {
-                // console.log(employees);
                 const modal = await this.modalController.create({
                     component: Hiring,
                     componentProps: {params: params, data: employees},
@@ -77,5 +76,15 @@ export class MenuActionComponent {
                 });
                 return await modal.present();
             });
+    }
+
+    private async _showWorkforce(params){
+        const modal = await this.modalController.create({
+            component: Workforce,
+            componentProps: {params: params, data: {}},
+            backdropDismiss: false,
+            cssClass: 'modalCss',
+        });
+        return await modal.present();
     }
 }
