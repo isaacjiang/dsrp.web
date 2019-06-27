@@ -15,11 +15,12 @@ export class Forecasting {
     private parameters: any = {tabs_value: ['projected_sale'], tabs_disp: ['Projected Sale'], labels: ['B2B', 'B2C', 'New Offering']};
     private forcast: any;
 
-    constructor(public events: Events,
-                public shareService: ShareService,
-                public httpService: HttpService,
-                public modalCtl: ModalController,
-                public navParam: NavParams) {
+    constructor(private events: Events,
+                private shareService: ShareService,
+                private httpService: HttpService,
+                private modalCtl: ModalController,
+                private navParam: NavParams) {
+        console.log(this.navParam.data)
         this.task_info = navParam.data;
         // console.log(this.task_info);
         this.initialization();

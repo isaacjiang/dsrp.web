@@ -10,6 +10,10 @@ import {MenuController, ModalController} from '@ionic/angular';
 import {Forecasting} from '../functions/forecasting/forecasting';
 import {Hiring} from '../functions/hiring/hiring';
 import {Workforce} from '../functions/workforce/workforce.component';
+import {ResourceAcquisition} from '../functions/resource-acquisition/resource-acquisition.component';
+import {Actions} from '../functions/actions/actions.component';
+import {Startupfunding} from '../functions/startupfunding/startupfunding.component';
+import {Expenditure} from '../functions/expenditure/expenditure.component';
 
 @Component({
     selector: 'edp-main-menu',
@@ -51,6 +55,18 @@ export class MenuActionComponent {
             case 'Workforce':
                 this._showWorkforce(params);
                 break;
+            case 'Resource':
+                this._showResourceAcquisition(params);
+                break;
+            case 'Expenditure':
+                this._showExpenditure(params);
+                break;
+            case 'StartUpFunding':
+                this._showStartUpFunding(params);
+                break;
+            case 'Actions':
+                this._showActions(params);
+                break;
         }
         this.menuController.close('action');
     }
@@ -58,7 +74,7 @@ export class MenuActionComponent {
     private async _showForecasting(params) {
         const modal = await this.modalController.create({
             component: Forecasting,
-            componentProps: params,
+            componentProps: {params: params, data: {}},
             backdropDismiss: false,
             cssClass: 'modalCss',
         });
@@ -81,6 +97,46 @@ export class MenuActionComponent {
     private async _showWorkforce(params){
         const modal = await this.modalController.create({
             component: Workforce,
+            componentProps: {params: params, data: {}},
+            backdropDismiss: false,
+            cssClass: 'modalCss',
+        });
+        return await modal.present();
+    }
+
+    private async _showResourceAcquisition(params){
+        const modal = await this.modalController.create({
+            component: ResourceAcquisition,
+            componentProps: {params: params, data: {}},
+            backdropDismiss: false,
+            cssClass: 'modalCss',
+        });
+        return await modal.present();
+    }
+
+    private async _showExpenditure(params){
+        const modal = await this.modalController.create({
+            component: Expenditure,
+            componentProps: {params: params, data: {}},
+            backdropDismiss: false,
+            cssClass: 'modalCss',
+        });
+        return await modal.present();
+    }
+
+    private async _showStartUpFunding(params){
+        const modal = await this.modalController.create({
+            component: Startupfunding,
+            componentProps: {params: params, data: {}},
+            backdropDismiss: false,
+            cssClass: 'modalCss',
+        });
+        return await modal.present();
+    }
+
+    private async _showActions(params){
+        const modal = await this.modalController.create({
+            component: Actions,
             componentProps: {params: params, data: {}},
             backdropDismiss: false,
             cssClass: 'modalCss',

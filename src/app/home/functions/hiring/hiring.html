@@ -4,7 +4,7 @@
     <input [uploader]="uploaderPDF" accept=".pdf" id="PDFFile" ng2FileSelect
            style="display: none;" type="file">
     <ion-toolbar color="tertiary">
-        <ion-title>Forecast</ion-title>
+        <ion-title>{{task_info['params']['name']}}</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="openPdf(1)">
                 <ion-icon name="document"></ion-icon>

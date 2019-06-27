@@ -19,11 +19,12 @@ export class Hiring {
     private uploaderImage: FileUploader;
     private uploaderPDF: FileUploader;
 
-    constructor(public events: Events,
-                public shareService: ShareService,
-                public httpService: HttpService,
-                public modalController: ModalController,
-                public navParam: NavParams) {
+    constructor(private events: Events,
+                private shareService: ShareService,
+                private httpService: HttpService,
+                private modalController: ModalController,
+                private navParam: NavParams) {
+        this.task_info = this.navParam.data;
         this.eventsHandles(this);
         this.initialization(this, navParam.data);
         this.fileUploadInit();

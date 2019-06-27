@@ -1,0 +1,41 @@
+<ion-header>
+    <!--  <input [uploader]="uploaderImage" accept="image/*" id="imageFile" ng2FileSelect-->
+    <!--         style="display: none;" type="file">-->
+    <!--  <input [uploader]="uploaderPDF" accept=".pdf" id="PDFFile" ng2FileSelect-->
+    <!--         style="display: none;" type="file">-->
+    <ion-toolbar color="tertiary">
+        <ion-title>{{task_info['params']['name']}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon name="document"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon name="information-circle"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="tabs" slot="start">
+            <ion-segment-button [value]="parameters.tabs_value[0]">
+                {{parameters.tabs_disp[0]}}
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="submit()" color="primary" fill="outline">Submit</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

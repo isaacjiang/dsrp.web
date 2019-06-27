@@ -17,6 +17,10 @@ import {FooterComponent} from './footer/footer.component';
 import {Hiring} from './functions/hiring/hiring';
 import {FileUploadModule} from 'ng2-file-upload';
 import {Workforce} from './functions/workforce/workforce.component';
+import {ResourceAcquisition} from './functions/resource-acquisition/resource-acquisition.component';
+import {Actions} from './functions/actions/actions.component';
+import {Startupfunding} from './functions/startupfunding/startupfunding.component';
+import {Expenditure} from './functions/expenditure/expenditure.component';
 
 @NgModule({
     imports: [
@@ -30,9 +34,9 @@ import {Workforce} from './functions/workforce/workforce.component';
             }
         ])
     ],
-    entryComponents: [Forecasting, Hiring, Workforce, PdfViewerComponent],
+    entryComponents: [Forecasting, Hiring, Workforce, PdfViewerComponent, ResourceAcquisition, Actions, Startupfunding, Expenditure],
     declarations: [HomePage, HeaderComponent, FooterComponent, MenuActionComponent, MenuBudgetComponent, HelpMenuComponent,
-        PdfViewerComponent, Forecasting, Hiring, Workforce]
+        PdfViewerComponent, Forecasting, Hiring, Workforce, ResourceAcquisition, Actions, Startupfunding, Expenditure]
 })
 export class HomePageModule {
 }
