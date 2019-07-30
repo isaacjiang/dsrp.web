@@ -13,11 +13,11 @@ export class Actions implements OnInit {
 
     constructor(private modalController: ModalController,
                 private navParam: NavParams) {
-        this.task_info = navParam.data;
 
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
+        this.task_info = this.navParam.data;
     }
 
     dismiss() {

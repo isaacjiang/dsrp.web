@@ -49,7 +49,8 @@
     </ion-buttons>
 </ion-toolbar>
 <ion-content>
-    <pdf-viewer (after-load-complete)="afterLoadComplete($event)" [(page)]="currentPage" [render-text]="true" [rotation]="rotate" [src]="pdfSrc"
+    <pdf-viewer (after-load-complete)="afterLoadComplete($event)" [(page)]="currentPage" [render-text]="true"
+                [rotation]="rotate" [src]="pdfSrc"
                 [zoom]="zoom" style="display: block;"></pdf-viewer>
 </ion-content>
 

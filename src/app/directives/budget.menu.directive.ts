@@ -1,9 +1,9 @@
-import {ViewContainerRef, Directive} from '@angular/core';
+import {Directive, ViewContainerRef} from '@angular/core';
 
 @Directive({
-  selector: 'edp-directive-menu-budget',
+    selector: 'edp-directive-menu-budget',
 })
-export class BudgetMenuDirective  {
-  constructor(public viewContainerRef: ViewContainerRef) {
-  }
+export class BudgetMenuDirective {
+    constructor(public viewContainerRef: ViewContainerRef) {
+    }
 }

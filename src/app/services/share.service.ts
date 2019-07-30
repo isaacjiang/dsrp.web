@@ -28,7 +28,7 @@ export class ShareService {
     public current_user: any = {username: 'jakechen0816', anonymous: false}; // {username: 'Anonymous', anonymous: true};
 
     constructor(public httpService: HttpService,
-                private modalController:ModalController) {
+                private modalController: ModalController) {
 
     }
 

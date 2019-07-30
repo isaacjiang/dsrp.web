@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Events, ModalController, NavParams} from '@ionic/angular';
 import {HttpService} from '../../../services/http.service';
 import {ShareService} from '../../../services/share.service';
@@ -9,7 +9,7 @@ import {ShareService} from '../../../services/share.service';
     templateUrl: 'forecasting.html',
     styleUrls: ['forecasting.scss'],
 })
-export class Forecasting {
+export class Forecasting implements OnInit {
     private task_info: any;
     private tabs: any;
     private parameters: any = {tabs_value: ['projected_sale'], tabs_disp: ['Projected Sale'], labels: ['B2B', 'B2C', 'New Offering']};
@@ -20,10 +20,11 @@ export class Forecasting {
                 private httpService: HttpService,
                 private modalCtl: ModalController,
                 private navParam: NavParams) {
-        console.log(this.navParam.data)
-        this.task_info = navParam.data;
-        // console.log(this.task_info);
         this.initialization();
+    }
+
+    ngOnInit(): void {
+        this.task_info = this.navParam.data;
     }
 
     private dismiss() {

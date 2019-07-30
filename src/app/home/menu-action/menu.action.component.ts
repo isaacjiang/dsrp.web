@@ -94,7 +94,7 @@ export class MenuActionComponent {
             });
     }
 
-    private async _showWorkforce(params){
+    private async _showWorkforce(params) {
         const modal = await this.modalController.create({
             component: Workforce,
             componentProps: {params: params, data: {}},
@@ -104,7 +104,7 @@ export class MenuActionComponent {
         return await modal.present();
     }
 
-    private async _showResourceAcquisition(params){
+    private async _showResourceAcquisition(params) {
         const modal = await this.modalController.create({
             component: ResourceAcquisition,
             componentProps: {params: params, data: {}},
@@ -114,7 +114,7 @@ export class MenuActionComponent {
         return await modal.present();
     }
 
-    private async _showExpenditure(params){
+    private async _showExpenditure(params) {
         const modal = await this.modalController.create({
             component: Expenditure,
             componentProps: {params: params, data: {}},
@@ -124,7 +124,7 @@ export class MenuActionComponent {
         return await modal.present();
     }
 
-    private async _showStartUpFunding(params){
+    private async _showStartUpFunding(params) {
         const modal = await this.modalController.create({
             component: Startupfunding,
             componentProps: {params: params, data: {}},
@@ -134,7 +134,7 @@ export class MenuActionComponent {
         return await modal.present();
     }
 
-    private async _showActions(params){
+    private async _showActions(params) {
         const modal = await this.modalController.create({
             component: Actions,
             componentProps: {params: params, data: {}},

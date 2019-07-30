@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
 import {Events, ModalController, NavParams} from '@ionic/angular';
 import {ShareService} from '../../../services/share.service';
@@ -9,7 +9,7 @@ import {PdfViewerComponent} from '../pdfviewer/pdfviewer';
     selector: 'hiring',
     templateUrl: 'hiring.html'
 })
-export class Hiring {
+export class Hiring implements OnInit {
     private task_info: any;
     private tabs: any;
     private parameters: any = {tabs_value: []};
@@ -24,12 +24,14 @@ export class Hiring {
                 private httpService: HttpService,
                 private modalController: ModalController,
                 private navParam: NavParams) {
-        this.task_info = this.navParam.data;
         this.eventsHandles(this);
         this.initialization(this, navParam.data);
         this.fileUploadInit();
     }
 
+    ngOnInit(): void {
+        this.task_info = this.navParam.data;
+    }
 
     public fileUploadInit() {
         this.uploaderImage = new FileUploader({
@@ -91,7 +93,6 @@ export class Hiring {
         document.getElementById('imageFile').click();
     }
 
-
     private eventsHandles(root) {
         root.events.subscribe('root-login-modal-dismiss', (param) => {
             this.dismiss();
@@ -127,7 +128,6 @@ export class Hiring {
         //         e.salaryOffer = e.minimumSalary;
         //     });
         // });
-
     }
 
     private onTabChange() {
@@ -159,7 +159,6 @@ export class Hiring {
         }).subscribe(resp => {
             this.dismiss();
         });
-
     }
 
     private dismiss() {
@@ -169,7 +168,6 @@ export class Hiring {
     private openPdf(fileId) {
         this.presentModal(fileId);
     }
-
 
     private clickFileInput() {
         document.getElementById('selectedFile').click();

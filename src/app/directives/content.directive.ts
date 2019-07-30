@@ -1,9 +1,9 @@
-import {ViewContainerRef, Directive} from '@angular/core';
+import {Directive, ViewContainerRef} from '@angular/core';
 
 @Directive({
-  selector: 'edp-directive-content',
+    selector: 'edp-directive-content',
 })
-export class ContentDirective  {
-  constructor(public viewContainerRef: ViewContainerRef) {
-  }
+export class ContentDirective {
+    constructor(public viewContainerRef: ViewContainerRef) {
+    }
 }

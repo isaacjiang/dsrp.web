@@ -1,9 +1,9 @@
-import {ViewContainerRef, Directive,ElementRef,Renderer} from '@angular/core';
+import {Directive, ViewContainerRef} from '@angular/core';
 
 @Directive({
-  selector: 'edp-directive-menu-fixed',
+    selector: 'edp-directive-menu-fixed',
 })
-export class FixedMenuDirective  {
-  constructor(public viewContainerRef: ViewContainerRef) {
-  }
+export class FixedMenuDirective {
+    constructor(public viewContainerRef: ViewContainerRef) {
+    }
 }

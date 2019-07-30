@@ -8,7 +8,6 @@ import {ModalController, NavParams} from '@ionic/angular';
 })
 export class Workforce implements OnInit {
     private task_info: any;
-
     private tabs: any;
     private parameters: any = {tabs_value: ['test'], tabs_disp: ['TEST'], labels: []};
     private test1 = 0;
@@ -16,10 +15,10 @@ export class Workforce implements OnInit {
 
     constructor(private modalController: ModalController,
                 private navParam: NavParams) {
-        this.task_info = this.navParam.data;
     }
 
     ngOnInit() {
+        this.task_info = this.navParam.data;
         this.tabs = this.parameters.tabs_value[0];
     }
 
@@ -28,7 +27,6 @@ export class Workforce implements OnInit {
     }
 
     submit() {
-
     }
 
 }

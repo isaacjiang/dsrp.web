@@ -1,9 +1,9 @@
-import {ViewContainerRef, Directive,ElementRef,Renderer} from '@angular/core';
+import {Directive, ViewContainerRef} from '@angular/core';
 
 @Directive({
-  selector: 'edp-directive-message',
+    selector: 'edp-directive-message',
 })
-export class MessagesDirective  {
-  constructor(public viewContainerRef: ViewContainerRef) {
-  }
+export class MessagesDirective {
+    constructor(public viewContainerRef: ViewContainerRef) {
+    }
 }

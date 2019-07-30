@@ -23,7 +23,6 @@ export class PdfViewerComponent {
 
     constructor(public navParam: NavParams) {
         this.fileId = navParam['data']['fileId'];
-        console.log(navParam);
         this.initialiazation();
     }
 
@@ -55,13 +54,12 @@ export class PdfViewerComponent {
             default:
                 this.currentPage += value;
         }
-
     }
 
     onRotate(value) {
-        if(value==0){
-            this.rotate=value;
-        }else{
+        if (value == 0) {
+            this.rotate = value;
+        } else {
             this.rotate += value;
         }
     }
