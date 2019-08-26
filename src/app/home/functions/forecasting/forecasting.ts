@@ -35,7 +35,7 @@ export class Forecasting implements OnInit {
         this.tabs = this.parameters.tabs_value[0];
         this.forcast = {b2b: 0, b2c: 0, newoffering: 0, total: 0, total_disp: '0'};
         if (this.task_info.companyName === 'NewCo') {
-            this.parameters.labels = ['Niche #1', 'Niche #3', 'Niche #3', 'Total'];
+            this.parameters.labels = ['Niche #1', 'Niche #2', 'Niche #3', 'Total'];
         }
 
         this.httpService.get('/api/forecasting/' + this.shareService.current_user.companyId)
